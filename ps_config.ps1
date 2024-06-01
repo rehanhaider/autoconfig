@@ -22,6 +22,14 @@ else {
     Write-Host "Winget added to the PATH."
 }
 
+# Install latest PowerShell
+## Check if PowerShell is installed
+while (!(Get-Command pwsh -ErrorAction SilentlyContinue)) {
+    Write-Host "PowerShell is not installed. Installing..."
+    Start-Process "ms-windows-store://pdp/?productid=9MZ1SNWT0N5D"
+    Write-Host "PowerShell is installed."
+}
+
 # Install Windows Terminal from the Microsoft Store
 ## Check if Windows Terminal is installed
 while (!(Get-AppxPackage -Name Microsoft.WindowsTerminal -ErrorAction SilentlyContinue)) {
@@ -145,6 +153,29 @@ else {
     ## If the theme file is not found, set the default theme
     Write-Host "Theme file not found. Setting the default..."
     Add-Content $PROFILE "oh-my-posh init pwsh | Invoke-Expression"
+}
+
+
+
+## Install Terminal-Icons module
+## Check if Terminal-Icons module is installed
+if (!(Get-Module -Name Terminal-Icons -ListAvailable)) {
+    Write-Host "Terminal-Icons is not installed. Installing..."
+    Install-Module -Name Terminal-Icons -Repository PSGallery
+    Write-Host "Terminal-Icons is installed."
+}
+else {
+    Write-Host "Terminal-Icons is already installed."
+}
+
+## Check if Terminal-Icons is already configured in the profile
+if ((Get-Content $PROFILE) -contains "Import-Module Terminal-Icons") {
+    Write-Host "Terminal-Icons is already configured in the profile."
+}
+else {
+    Write-Host "Adding the Terminal-Icons config statement in the profile..."
+    Add-Content $PROFILE "`nImport-Module Terminal-Icons`n"
+    Write-Host "The Terminal-Icons config added in the profile."
 }
 
 # Restart the PowerShell session
