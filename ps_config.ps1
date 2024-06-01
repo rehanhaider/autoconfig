@@ -85,21 +85,9 @@ else {
     Write-Host "PowerShell profile already exists."
 }
 
-## Check if the following command is already in the profile "oh-my-posh init pwsh | Invoke-Expression"
-if ((Get-Content $PROFILE) -contains "oh-my-posh init pwsh | Invoke-Expression") {
-    Write-Host "Oh My Posh is already configured in the profile."
-}
-else {
-    Write-Host "Configuring Oh My Posh in the profile..."
-    Add-Content $PROFILE "oh-my-posh init pwsh | Invoke-Expression"
-    Write-Host "Oh My Posh added in the profile."
-}
+# Configure theme
 
-## Configure theme
-
-#Set-PoshPrompt -Theme paradox
-
-# Check if PSReadLine is installed
+## Check if PSReadLine is installed
 if (!(Get-Module -Name PSReadLine -ListAvailable)) {
     Write-Host "PSReadLine is not installed. Installing..."
     Install-Module PsReadLine -Force
@@ -108,8 +96,8 @@ if (!(Get-Module -Name PSReadLine -ListAvailable)) {
 else {
     Write-Host "PSReadLine is already installed."
 }
-# Check if ($host.Name -eq 'ConsoleHost') command is already in the profile
-if ((Get-Content $PROFILE) -contains "Import-Module PSReadLine") {
+## Check if ($host.Name -eq 'ConsoleHost') command is already in the profile
+if ((Get-Content $PROFILE) -contains "`nif (`$host.Name -eq 'ConsoleHost')`n{`n`tImport-Module PSReadLine`n}`n") {
     Write-Host "PSReadLine is already configured in the profile."
 }
 else {
@@ -117,7 +105,35 @@ else {
     Add-Content $PROFILE "`nif (`$host.Name -eq 'ConsoleHost')`n{`n`tImport-Module PSReadLine`n}`n"
     Write-Host "The PSReadline config added in the profile."
 }
+Set-PSReadLineKeyHandler -Key Tab -Function Complete
 
+## Copy the theme file to the Oh My Posh themes directory
+$theme = "quick-term-custom.omp.json"
+if (Test-Path "themes\$theme") {
+    Write-Host "Found the theme file."
+    ## Check if the theme exists in the Oh My Posh themes directory
+    if (Test-Path "$env:POSH_THEMES_PATH\quick-term.omp.json") {
+        Write-Host "Theme already installed. Skipping..."
+    }
+    else {
+        ## Copy the theme to the Oh My Posh themes directory
+        Copy-Item -Path "themes\$theme" -Destination "$env:POSH_THEMES_PATH\"
+        Write-Host "Theme installed successfully."
+    }
+    ## Check if the theme is already set
+    if ((Get-Content $PROFILE) -contains "oh-my-posh init pwsh --config `"$env:POSH_THEMES_PATH\$theme.json`" | Invoke-Expression") {
+        Write-Host "Theme is already set."
+    }
+    else {
+        Write-Host "Setting the theme..."
+        Add-Content $PROFILE "oh-my-posh init pwsh --config `"$env:POSH_THEMES_PATH\$theme.json`" | Invoke-Expression"
+        Write-Host "Theme set."
+    }
 
-oh-my-posh init pwsh --config "themes/quick-term.omp.json" | Invoke-Expression
+}
+else {
+    ## If the theme file is not found, set the default theme
+    Write-Host "Theme file not found. Setting the default..."
+    Add-Content $PROFILE "oh-my-posh init pwsh | Invoke-Expression"
+}
 
