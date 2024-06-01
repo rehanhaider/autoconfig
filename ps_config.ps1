@@ -86,6 +86,7 @@ else {
 }
 
 # Configure theme
+$ps_read_line_config = "`nif (`$host.Name -eq 'ConsoleHost')`n{`n`tImport-Module PSReadLine`n}`n"
 
 ## Check if PSReadLine is installed
 if (!(Get-Module -Name PSReadLine -ListAvailable)) {
@@ -97,12 +98,12 @@ else {
     Write-Host "PSReadLine is already installed."
 }
 ## Check if ($host.Name -eq 'ConsoleHost') command is already in the profile
-if ((Get-Content $PROFILE) -contains "`nif (`$host.Name -eq 'ConsoleHost')`n{`n`tImport-Module PSReadLine`n}`n") {
+if ((Get-Content $PROFILE) -contains "`tImport-Module PSReadLine") {
     Write-Host "PSReadLine is already configured in the profile."
 }
 else {
     Write-Host "Adding the PSReadline config statement in the profile..."
-    Add-Content $PROFILE "`nif (`$host.Name -eq 'ConsoleHost')`n{`n`tImport-Module PSReadLine`n}`n"
+    Add-Content $PROFILE $ps_read_line_config
     Write-Host "The PSReadline config added in the profile."
 }
 Set-PSReadLineKeyHandler -Key Tab -Function Complete
