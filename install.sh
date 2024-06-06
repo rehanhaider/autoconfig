@@ -1,6 +1,7 @@
 #!/bin/bash
 
 SILENT_MODE=false
+CUR_DIR=$(pwd)
 # shellcheck disable=SC2034
 STEP=0
 # Set silent mode
@@ -19,11 +20,11 @@ while getopts ":s" opt; do
 done
 
 # shellcheck disable=SC1091
-source ./wsl/static/ascii.sh
+source "$CUR_DIR/wsl/static/ascii.sh"
 # shellcheck disable=SC1091
-source ./wsl/static/format.sh
+source "$CUR_DIR/wsl/static/format.sh"
 # shellcheck disable=SC1091
-source ./wsl/static/intro.sh
+source "$CUR_DIR/wsl/static/intro.sh"
 
 
 if [ "$SILENT_MODE" = true ]; then
@@ -55,4 +56,7 @@ done
 echo -e "\n\n${DELIMITER}"
 
 # shellcheck disable=SC1091
-source ./wsl/scripts/packages.sh
+source "$CUR_DIR/wsl/scripts/packages.sh"
+
+# shellcheck disable=SC1091
+source "$CUR_DIR/wsl/scripts/base_terminal.sh"
