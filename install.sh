@@ -18,16 +18,10 @@ while getopts ":s" opt; do
 	esac
 done
 
-# ASCII Art
 # shellcheck disable=SC1091
 source ./wsl/static/ascii.sh
-
-# Colours
 # shellcheck disable=SC1091
 source ./wsl/static/format.sh
-
-
-# Display disclaimer
 # shellcheck disable=SC1091
 source ./wsl/static/intro.sh
 
@@ -54,11 +48,11 @@ echo -e "\n${DELIMITER}"
 echo -e -n "\nWSL Autoconfig in starting "
 # Sleep for 5 seconds
 # shellcheck disable=SC2034
-for i in {1..12}; do
+for i in {1..10}; do
 	echo -n "."
 	sleep 0.25
 done
 echo -e "\n\n${DELIMITER}"
 
 # shellcheck disable=SC1091
-source ./wsl/scripts/update.sh
+source ./wsl/scripts/packages.sh

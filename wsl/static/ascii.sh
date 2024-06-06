@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Define the ASCII art
+
 ascii_art="
  __          _______ _                      _         _____             __ _       
  \ \        / / ____| |          /\        | |       / ____|           / _(_)      
