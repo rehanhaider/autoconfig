@@ -40,6 +40,8 @@ configure_omp() {
         fi
         echo "Latest theme is installed ..."
     fi
+    echo "Backing up .profile"
+    cp "${HOME}/.profile" "${HOME}/.profile_bck"
 
     ## Check if the the theme name exists in the .profile
     if grep -q "$theme" "${HOME}/.profile"; then
