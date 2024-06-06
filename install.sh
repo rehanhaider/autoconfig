@@ -60,3 +60,6 @@ source "$CUR_DIR/wsl/scripts/packages.sh"
 
 # shellcheck disable=SC1091
 source "$CUR_DIR/wsl/scripts/base_terminal.sh"
+
+# shellcheck disable=SC1091
+source "$CUR_DIR/wsl/scripts/omp.sh"
