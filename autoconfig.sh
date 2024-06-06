@@ -1,67 +1,65 @@
 #!/bin/bash
 
-# Update packages
+SILENT_MODE=false
+CUR_DIR=$(pwd)
+# shellcheck disable=SC2034
+STEP=0
+# Set silent mode
+while getopts ":s" opt; do
+	case ${opt} in
+		s )
+			SILENT_MODE=true
+			;;
+		* )
+			echo "Usage: $0 [-s]"
+			echo "Options:"
+			echo "  -s  Silent mode"
+			exit 1
+			;;
+	esac
+done
 
-## Print message in green color
-echo -e "\e[32mUpdating packages\e[0m"
-sudo apt update -y && sudo apt upgrade -y
+# shellcheck disable=SC1091
+source "$CUR_DIR/wsl/static/ascii.sh"
+# shellcheck disable=SC1091
+source "$CUR_DIR/wsl/static/format.sh"
+# shellcheck disable=SC1091
+source "$CUR_DIR/wsl/static/intro.sh"
 
-# Configure Terminal Prompt
-echo -e "\e[32mConfiguring Terminal Prompt\e[0m"
 
-## Check if .bashrc exists
-if [ ! -f ~/.bashrc ]; then
-    echo "File .bashrc does not exist"
-    exit 1
-fi
-
-## Check if the function __bash_prompt() already exists the the file
-if grep -q "__bash_prompt()" ~/.bashrc; then
-    ## if the function exists, remove it
-    sed -i '/__bash_prompt()/,/^}/d' ~/.bashrc
-
-    ## Remove lines that are between "# AUTOCONFIG" and "# END AUTOCONFIG"
-    sed -i '/# AUTOCONFIG/,/# END AUTOCONFIG/d' ~/.bashrc
-
-fi
-
-## Add the function __bash_prompt() to the file
-cat ./configs/wsl/terminal_prompt >> ~/.bashrc
-
-## Check if Oh My Posh binary exists
-if [ ! -f /usr/local/bin/oh-my-posh ]; then
-    echo "Oh My Posh binary does not exist"
-    ## Install Oh My Posh
-    echo "Installing Oh My Posh"
-    curl -s https://ohmyposh.dev/install.sh > install.sh
-    chmod +x install.sh
-    sudo ./install.sh
+if [ "$SILENT_MODE" = true ]; then
+	# Display ASCII Art
+	echo -e "${RED}\nRunning in silent mode ...${NC}"
 fi
 
 
-## Create a theme folder
-if [ ! -d ~/.poshthemes ]; then
-    mkdir ~/.poshthemes
+if [ "$SILENT_MODE" = false ]; then
+	# Prompt the user to continue
+	while true; do
+		echo -e -n "\n"
+		read -r -p "Do you wish to continue? [Y/N] " yn
+		case $yn in
+			[Yy]* ) break;;
+			[Nn]* ) exit;;
+			* ) echo "Please answer Y or N";;
+		esac
+	done
 fi
+echo -e "\n${DELIMITER}"
+echo -e -n "\nWSL Autoconfig in starting "
+# Sleep for 5 seconds
+# shellcheck disable=SC2034
+for i in {1..10}; do
+	echo -n "."
+	sleep 0.25
+done
+echo -e "\n\n${DELIMITER}"
 
-theme="quick-term-custom.omp.json"
+# shellcheck disable=SC1091
+source "$CUR_DIR/wsl/scripts/packages.sh"
 
-## Check if the theme exists
-if [ ! -f "~/.poshthemes/$theme" ]; then
-    echo "Theme $theme does not exist"
-    ## Copy the theme to the folder
-    cp ./themes/$theme ~/.poshthemes
-else
-    echo "Theme $theme already exists"
-    # Check if the theme is the same
-    if ! cmp -s ~/.poshthemes/$theme ./themes/$theme; then
-        echo "Theme $theme is different"
-        cp ./themes/$theme ~/.poshthemes
-    fi
-fi
+# shellcheck disable=SC1091
+source "$CUR_DIR/wsl/scripts/base_terminal.sh"
 
-## Check if the the theme name exists in the .profile
-if ! grep -q "$theme" ~/.profile; then
-    ## Add the theme name to the .profile
-    echo "eval \"\$(oh-my-posh init bash --config ~/.poshthemes/$theme)\"" >> ~/.profile
-fi
+# shellcheck disable=SC1091
+source "$CUR_DIR/wsl/scripts/omp.sh"
