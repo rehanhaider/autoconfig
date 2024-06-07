@@ -1,5 +1,21 @@
 #!/bin/bash
 
+# Define color codes
+# shellcheck disable=SC2034
+COLOR_FAIL='\033[0;31m'
+COLOR_PASS='\033[0;32m'
+COLOR_WARN='\033[0;33m'
+COLOR_INFO='\033[0m' # No Color
+COLOR_BOLD='\033[1m'
+
+
+DELIMITER="------------------------------------------------------------------------------------"
+AUTOCONFIG_START="# AUTOCONFIG
+# ------------------------------------------------------------------------------------------------------------"
+AUTOCONFIG_END="# ------------------------------------------------------------------------------------------------------------
+# END AUTOCONFIG"
+
+
 rprint() {
     local color="$1"
     shift
@@ -84,3 +100,4 @@ alias PROMPT='prompt_and_execute'
 alias RUN='run_command'
 alias CHECK='check_wac_dir_exists'
 alias DELIM='print_delimiter'
+

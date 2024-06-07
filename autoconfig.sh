@@ -39,9 +39,7 @@ done
 # shellcheck disable=SC1091
 source "${LIB_DIR}/ascii.sh"
 # shellcheck disable=SC1091
-source "${LIB_DIR}/constants.sh"
-# shellcheck disable=SC1091
-source "${LIB_DIR}/utils.sh"
+source "${LIB_DIR}/ddl.sh"
 # shellcheck disable=SC1091
 source "${LIB_DIR}/intro.sh"
 
@@ -84,7 +82,7 @@ rprint "${COLOR_WARN}" "${DELIMITER}"
 
 
 # shellcheck disable=SC1091
-source "${SCRIPT_DIR}/install_packages.sh"
+#source "${SCRIPT_DIR}/install_packages.sh"
 
 # shellcheck disable=SC1091
 source "${SCRIPT_DIR}/prepare_wac.sh"
@@ -94,3 +92,7 @@ source "${SCRIPT_DIR}/bash_config.sh"
 
 # shellcheck disable=SC1091
 source "${SCRIPT_DIR}/omp_config.sh"
+
+NEWLINE
+rprint "${COLOR_WARN}" "${DELIMITER}"
+PASS "WSL Autoconfig completed successfully."
