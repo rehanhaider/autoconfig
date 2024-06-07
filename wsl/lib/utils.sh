@@ -55,3 +55,31 @@ prompt_and_execute() {
         ($func)
     fi
 }
+
+run_command() {
+    local action=$1
+    local command=$2
+
+
+    if eval "err ${command}"; then
+        PASS "${action} completed successfully."
+    else
+        FAIL "Failed to execute: ${action}. Please ensure you have the necessary permissions. Exiting ..."
+        exit 1
+    fi
+}
+
+check_wac_dir_exists() {
+    local name=$1
+    local dir=$2
+    if [ ! -d "$dir" ]; then
+        FAIL "${name} does not exist. preapre_wac.sh script must be run first."
+        FAIL "You are advise to redownload AUTOCONFIG and try again."
+        exit 1
+    fi
+}
+
+
+alias PROMPT='prompt_and_execute'
+alias RUN='run_command'
+alias CHECK='check_wac_dir_exists'

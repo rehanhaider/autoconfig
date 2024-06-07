@@ -75,7 +75,7 @@ INFO -n "WSL Autoconfig in starting "
 # shellcheck disable=SC2034
 for i in {1..4}; do
 	rprint "${COLOR_INFO}" -n "."
-	sleep 0.25
+	#sleep 0.25
 done
 NEWLINE
 NEWLINE
@@ -84,7 +84,7 @@ rprint "${COLOR_WARN}" "${DELIMITER}"
 
 
 # shellcheck disable=SC1091
-source "${SCRIPT_DIR}/install_packages.sh"
+#source "${SCRIPT_DIR}/install_packages.sh"
 
 # shellcheck disable=SC1091
 source "${SCRIPT_DIR}/prepare_wac.sh"
@@ -94,4 +94,3 @@ source "${SCRIPT_DIR}/bash_config.sh"
 
 # shellcheck disable=SC1091
 source "${SCRIPT_DIR}/omp_config.sh"
-

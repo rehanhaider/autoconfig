@@ -3,17 +3,16 @@
 # DEFINITIONS
 ## Update apt packages
 update_packages() {
-    err sudo apt update -y
+    run_command "Update" "sudo apt update -y"
 }
 
 upgrade_packages() {
-    err sudo apt upgrade -y
-    INFO "Packages upgraded successfully."
+    run_command "Upgrade" "sudo apt upgrade -y"
 }
 
 ## Install required packages
 install_packages() {
-    err sudo apt install -y curl nano wget
+    run_command "Installation" "sudo apt install -y curl nano wget"
 }
 
 # MAIN

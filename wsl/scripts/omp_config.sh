@@ -4,30 +4,14 @@ theme="quick-term-custom.omp.json"
 
 backup_theme() {
     WARN "Backing up existing theme..."
-    if err cp "${AUTOCONFIG_DIR}/poshthemes/$theme" "${AUTOCONFIG_BACKUPS_DIR}/poshthemes/.${theme}_wac_$(date +%Y%m%d%H%M%S)"; then
-        PASS "Theme backed up successfully ..."
-    else
-        FAIL "Failed to backup theme. Exiting ..."
-        exit 1
-    fi
+    RUN "Theme backup" "cp ${AUTOCONFIG_DIR}/poshthemes/$theme ${AUTOCONFIG_BACKUPS_DIR}/poshthemes/.${theme}_wac_$(date +%Y%m%d%H%M%S)"
     WARN "Keeping the last ${MAX_BACKUPS} backups. Older backups will be deleted ..."
-    if err find "${AUTOCONFIG_BACKUPS_DIR}/poshthemes" -name "._wac_*" -type f | sort -r | awk 'NR>'"${MAX_BACKUPS}" | xargs rm -f; then
-        PASS "Older backups deleted successfully."
-    else
-        FAIL "Failed to delete older backups. Please ensure you have the necessary permissions. Exiting ..."
-        exit 1
-    fi
-
+    RUN "Delete older backups" "find ${AUTOCONFIG_BACKUPS_DIR}/poshthemes -name '._wac_*' -type f | sort -r | awk 'NR>${MAX_BACKUPS}' | xargs rm -f"
 }
 
 overwrite_theme() {
     WARN "Overwriting theme ..."
-    if err cp "${THEME_DIR}/$theme" "${AUTOCONFIG_DIR}/poshthemes/"; then
-        PASS "Theme overwritten successfully ..."
-    else
-        FAIL "Failed to overwrite theme. Exiting ..."
-        exit 1
-    fi
+    RUN "Overwrite theme" "cp ${THEME_DIR}/$theme ${AUTOCONFIG_DIR}/poshthemes/"
 }
 
 
@@ -37,29 +21,10 @@ install_omp() {
         WARN "Oh My Posh binary does not exist..."
         ## Install Oh My Posh
         WARN "Installing Oh My Posh from source..."
-        if err curl -s https://ohmyposh.dev/install.sh > "${SCRIPTS_DIR}/omp_install.sh"; then
-            PASS "Oh My Posh install script downloaded ..."
-        else
-            FAIL "Failed to download Oh My Posh install script. Exiting ..."
-            exit 1
-        fi
-        if err chmod +x "${SCRIPTS_DIR}/omp_install.sh"; then
-            PASS "Oh My Posh install script is executable ..."
-        else
-            FAIL "Failed to make Oh My Posh install script executable. Exiting ..."
-            exit 1
-        fi
-        if err sudo "${SCRIPTS_DIR}/omp_install.sh"; then
-            PASS "Oh My Posh installed successfully ..."
-        else
-            FAIL "Failed to install Oh My Posh. Exiting ..."
-            exit 1
-        fi
-        if err rm "${SCRIPTS_DIR}/omp_install.sh"; then
-            PASS "Oh My Posh install script removed ..."
-        else
-            WARN "Failed to remove Oh My Posh install script. Please remove it manually ..."
-        fi
+        RUN "Download Oh My Posh install script" "curl -s https://ohmyposh.dev/install.sh > ${SCRIPTS_DIR}/omp_install.sh"
+        RUN "Make Oh My Posh install script executable" "chmod +x ${SCRIPTS_DIR}/omp_install.sh"
+        RUN "Install Oh My Posh" "sudo ${SCRIPTS_DIR}/omp_install.sh"
+        RUN "Remove Oh My Posh install script" "rm ${SCRIPTS_DIR}/omp_install.sh"
     fi
 }
 
@@ -67,23 +32,14 @@ install_omp() {
 configure_omp() {
  
     INFO "Configuring theme..."
-    ## Create a theme folder
-    if [ ! -d "${AUTOCONFIG_DIR}/poshthemes" ]; then
-        FAIL "Themes directory does not exist. preapre_wac.sh script must be run first."
-        FAIL "Advised to redownload AUTOCONFIG and try again."
-        exit 1
-    fi
+    CHECK "Themes directory" "${AUTOCONFIG_DIR}/poshthemes"
+
     INFO "Checking if theme exists ..."
     ## Check if the theme exists
     if [ ! -f "${AUTOCONFIG_DIR}/poshthemes/$theme" ]; then
         INFO "Installing Theme: $theme ..."
         ## Copy the theme to the folder
-        if err cp "${THEME_DIR}/$theme" "${AUTOCONFIG_DIR}/poshthemes/"; then
-            PASS "Theme installed successfully ..."
-        else
-            FAIL "Failed to install theme. Exiting ..."
-            exit 1
-        fi
+        RUN "Copy theme folder" "cp ${THEME_DIR}/$theme ${AUTOCONFIG_DIR}/poshthemes/"
     else
         INFO "Found Theme: $theme ..."
         INFO "Comparing with source version..."
@@ -116,59 +72,26 @@ configure_omp() {
         fi
         PASS "Latest theme is installed ..."
     fi
-    if [ ! -d "${AUTOCONFIG_BACKUPS_DIR}/profile" ]; then
-        FAIL "Profile backups directory does not exist. preapre_wac.sh script must be run first."
-        FAIL "Advised to redownload AUTOCONFIG and try again."
-        exit 1
-    fi
+    ## Check if Profile backup directory exists
+    CHECK "Oh My Posh configuration" "${AUTOCONFIG_BACKUPS_DIR}/profile"
 
     WARN "Backing up .profile"
-    if err cp "${HOME}/.profile" "${AUTOCONFIG_BACKUPS_DIR}/profile/._wac_$(date +%Y%m%d%H%M%S)"; then
-        PASS "Profile backed up successfully ..."
-    else
-        FAIL "Failed to backup profile. Exiting ..."
-        exit 1
-    fi
+    RUN "Profile backup" "cp ${HOME}/.profile ${AUTOCONFIG_BACKUPS_DIR}/profile/._wac_$(date +%Y%m%d%H%M%S)"
     
     WARN "Keeping the last ${MAX_BACKUPS} backups. Older backups will be deleted ..."
-    if err find "${AUTOCONFIG_BACKUPS_DIR}/profile" -name "._wac_*" -type f | sort -r | awk 'NR>'"${MAX_BACKUPS}" | xargs rm -f; then
-        PASS "Older backups deleted successfully."
-    else
-        FAIL "Failed to delete older backups. Please ensure you have the necessary permissions. Exiting ..."
-        exit 1
-    fi
+    RUN "Delete older backups" "find ${AUTOCONFIG_BACKUPS_DIR}/profile -name '._wac_*' -type f | sort -r | awk 'NR>${MAX_BACKUPS}' | xargs rm -f"
 
     ## Check if the the theme name exists in the .profile
     if grep -q "$theme" "${HOME}/.profile"; then
         WARN "Removing older AUTOCONFIG data"
         ## Remove lines that are between "# AUTOCONFIG" and "# END AUTOCONFIG"
-        if err sed -i '/# AUTOCONFIG/,/# END AUTOCONFIG/d' "${HOME}/.profile"; then
-            PASS "Previous AUTOCONFIG configuration removed successfully."
-        else
-            FAIL "Failed to remove previous AUTOCONFIG configuration. Please check if you have the necessary permissions. If needed visually inspect the ~/.profile file. Exiting ..."
-            exit 1
-        fi
+        RUN "Remove previous AUTOCONFIG configuration" "sed -i '/# AUTOCONFIG/,/# END AUTOCONFIG/d' ${HOME}/.profile"
     fi
-        ## Add the theme name to the .profile
-    export WSL_ACFG_OMP_THEME=$theme
-    if echo "${AUTOCONFIG_START}" >> "${HOME}/.profile"; then
-        PASS "AUTOCONFIG start marker added to .profile"
-    else
-        FAIL "Failed to add AUTOCONFIG start marker to .profile. Exiting ..."
-        exit 1
-    fi
-    if echo "eval \"\$(oh-my-posh init bash --config ~/.poshthemes/$theme)\"" >> ~/.profile; then
-        PASS "Oh My Posh configuration added to .profile"
-    else
-        FAIL "Failed to add Oh My Posh configuration to .profile. Exiting ..."
-        exit 1
-    fi
-    if echo "${AUTOCONFIG_END}" >> "${HOME}/.profile"; then
-        PASS "AUTOCONFIG end marker added to .profile"
-    else
-        FAIL "Failed to add AUTOCONFIG end marker to .profile. Exiting ..."
-        exit 1
-    fi
+    ## Add the theme name to the .profile
+    RUN "AUTOCONFIG start marker" "echo '${AUTOCONFIG_START}' >> ${HOME}/.profile"
+    # shellcheck disable=SC2016
+    RUN "Add OMP config in .profile" 'echo "eval \"\$(oh-my-posh init bash --config ~/.poshthemes/$theme)\"" >> ~/.profile'
+    RUN "AUTOCONFIG end marker" "echo '${AUTOCONFIG_END}' >> ${HOME}/.profile"
 }
 
 print_delimiter "Installing Oh My Posh..."
