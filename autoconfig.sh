@@ -5,14 +5,19 @@ shopt -s expand_aliases
 SILENT_MODE=true
 # shellcheck disable=SC2034
 MAX_BACKUPS=10 
+
+## Set the directories
 CUR_DIR=$(pwd)
+SCRIPT_DIR="${CUR_DIR}/wsl/scripts"
+LIB_DIR="${CUR_DIR}/wsl/lib"
+# shellcheck disable=SC2034
+THEME_DIR="${CUR_DIR}/themes"
+
 AUTOCONFIG_DIR="${HOME}/.autoconfig"
 # shellcheck disable=SC2034
 AUTOCONFIG_BACKUPS_DIR="${AUTOCONFIG_DIR}/.backups"
-SCRIPT_DIR="${CUR_DIR}/wsl/scripts"
-STATIC_DIR="${CUR_DIR}/wsl/static"
 # shellcheck disable=SC2034
-THEME_DIR="${CUR_DIR}/themes"
+AUTOCONFIG_THEMES_DIR="${AUTOCONFIG_DIR}/poshthemes"
 
 # shellcheck disable=SC2034
 STEP=0
@@ -32,16 +37,20 @@ while getopts ":i" opt; do
 done
 
 # shellcheck disable=SC1091
-source "${STATIC_DIR}/ascii.sh"
+source "${LIB_DIR}/ascii.sh"
 # shellcheck disable=SC1091
-source "${STATIC_DIR}/format.sh"
+source "${LIB_DIR}/constants.sh"
 # shellcheck disable=SC1091
-source "${STATIC_DIR}/intro.sh"
+source "${LIB_DIR}/utils.sh"
+# shellcheck disable=SC1091
+source "${LIB_DIR}/intro.sh"
 
 
 if [ "$SILENT_MODE" = true ]; then
 	# Display ASCII Art
-	FAIL "\nRunning in silent mode ..."
+	NEWLINE
+	WARN "Running in silent mode ..."
+	NEWLINE
 fi
 
 
@@ -57,23 +66,25 @@ if [ "$SILENT_MODE" = false ]; then
 		esac
 	done
 fi
-WARN "\n${DELIMITER}"
-INFO -n "\nWSL Autoconfig in starting "
 
-
+rprint "${COLOR_WARN}" "${DELIMITER}"
+NEWLINE
+INFO -n "WSL Autoconfig in starting "
 
 # Sleep for 5 seconds
 # shellcheck disable=SC2034
 for i in {1..4}; do
-	INFO -n "."
+	rprint "${COLOR_INFO}" -n "."
 	sleep 0.25
 done
-WARN "\n\n${DELIMITER}"
+NEWLINE
+NEWLINE
+rprint "${COLOR_WARN}" "${DELIMITER}"
 
 
 
 # shellcheck disable=SC1091
-#source "${SCRIPT_DIR}/install_packages.sh"
+source "${SCRIPT_DIR}/install_packages.sh"
 
 # shellcheck disable=SC1091
 source "${SCRIPT_DIR}/prepare_wac.sh"

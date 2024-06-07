@@ -4,12 +4,11 @@
 ## Update apt packages
 update_packages() {
     err sudo apt update -y
-    echo -e "\n"
-    WARN -n "Step $((++STEP)): "
-    WARN "Updating packages..."
-    WARN "${DELIMITER}"
+}
+
+upgrade_packages() {
     err sudo apt upgrade -y
-    INFO "Packages updated successfully."
+    INFO "Packages upgraded successfully."
 }
 
 ## Install required packages
@@ -20,46 +19,18 @@ install_packages() {
 # MAIN
 
 ## Prompt the user to update packages
-echo -e "\n"
-WARN -n "Step $((++STEP)): "
-WARN "Updating package lists..."
-WARN "${DELIMITER}"
+print_delimiter "Updating apt packages..."
+prompt_and_execute "updating apt packages" update_packages
+NEWLINE
+PASS "Packages updated successfully."
 
-
-if [ "$SILENT_MODE" = false ]; then
-    # shellcheck disable=SC1091
-    read -r -p "Proceed with updating apt packages? [Y/N]  " yn
-    case $yn in
-        [Yy]* ) update_packages;;
-        [Nn]* ) 
-                echo -n "Skipping updating packages "
-                # shellcheck disable=SC2034
-                for i in {1..8}; do echo -n "." && sleep 0.25; done;
-                echo -e "\n";;
-        * ) echo "Please answer Y or N.";;
-    esac
-else
-    update_packages
-fi
+print_delimiter "Upgrading apt packages..."
+prompt_and_execute "upgrading apt packages" upgrade_packages
+NEWLINE
+PASS "Packages upgraded successfully."
 
 ## Prompt the user to install required packages
-echo -e "\n"
-WARN -n "Step $((++STEP)): "
-WARN "Installing required packaes..."
-WARN "${DELIMITER}"
-
-
-if [ "$SILENT_MODE" = false ]; then
-    # shellcheck disable=SC1091
-    read -r -p "Proceed with installing required packages? [Y/N]  " yn
-    case $yn in
-        [Yy]* ) install_packages;;
-        [Nn]* ) 
-                echo -n "Skipping installing required packages "
-                # shellcheck disable=SC2034
-                for i in {1..8}; do echo -n "." && sleep 0.25; done;;
-        * ) echo "Please answer Y or N.";;
-    esac
-else
-    install_packages
-fi
+print_delimiter "Installing required packages..."
+prompt_and_execute "installing required packages" install_packages
+NEWLINE
+PASS "Required packages installed successfully."

@@ -4,58 +4,91 @@
 
 configure_bashrc() {
     INFO "Backing up existing .bashrc ..."
+    ## Check if the bash directory exists in AUTOCONFIG_BACKUPS_DIR
     if [ ! -d "${AUTOCONFIG_BACKUPS_DIR}/bash" ]; then
-        err mkdir -p "${AUTOCONFIG_BACKUPS_DIR}/bash"
+        FAIL "bash backup directory does not exist. preapre_wac.sh script must be run first."
+        FAIL "Advised to redownload AUTOCONFIG. and try again."
+        exit 1
     fi
-    err cp "${HOME}/.bashrc" "${AUTOCONFIG_BACKUPS_DIR}/bash/.bashrc_wac_$(date +%Y%m%d%H%M%S)"
-    # Keep the last MAX_BACKUPS backups, delete the rest. Implement using find and awk
-    INFO "Keeping the last ${MAX_BACKUPS} backups. Older backups will be deleted ..."
-    err find "${AUTOCONFIG_BACKUPS_DIR}/bash" -name ".bashrc_wac_*" -type f | sort -r | awk 'NR>'"${MAX_BACKUPS}" | xargs rm -f
-    INFO "Backed up as ${AUTOCONFIG_BACKUPS_DIR}/.bashrc_wac_$(date +%Y%m%d%H%M%S)"
+
     INFO "Checking if .bashrc exists ..."
+    if [ -f "${HOME}/.bashrc" ]; then
+        ## Backup existing .bashrc
+        WARN "Existing .bashrc found. Backing up ..."
+        if err cp "${HOME}/.bashrc" "${AUTOCONFIG_BACKUPS_DIR}/bash/.bashrc_wac_$(date +%Y%m%d%H%M%S)"; then
+            PASS "Backed up as ${AUTOCONFIG_BACKUPS_DIR}/bash/.bashrc_wac_$(date +%Y%m%d%H%M%S)"
+        else
+            FAIL "Failed to backup .bashrc. Please ensure you have the necessary permissions. Exiting ..."
+            exit 1
+        fi
+    fi
+    # Keep the last MAX_BACKUPS backups, delete the rest. Implement using find and awk
+    WARN "Keeping the last ${MAX_BACKUPS} backups. Older backups will be deleted ..."
+    if err find "${AUTOCONFIG_BACKUPS_DIR}/bash" -name "._wac_*" -type f | sort -r | awk 'NR>'"${MAX_BACKUPS}" | xargs rm -f; then
+        PASS "Older backups deleted successfully."
+    else
+        FAIL "Failed to delete older backups. Please ensure you have the necessary permissions. Exiting ..."
+        exit 1
+    fi
+
     ## Check if .bashrc exists
     if [ ! -f "${HOME}/.bashrc" ]; then
-       err touch "${HOME}/.bashrc"
-       INFO "${HOME}/.bashrc created"
+        WARN ".bashrc does not exist. Creating ..."
+        if err touch "${HOME}/.bashrc"; then
+            PASS "${HOME}/.bashrc created"
+        else
+            FAIL "Failed to create .bashrc. Please ensure you have the necessary permissions. Exiting ..."
+            exit 1
+        fi
     fi
+
     INFO "Checking if previous AUTOCONFIG configuration exists ..."
     # Check if # AUTOCONFIG exists in .bashrc
     if grep -q "# AUTOCONFIG" "${HOME}/.bashrc"; then
         INFO "Previous AUTOCONFIG configuration found."
-        INFO "Removing previous AUTOCONFIG configuration"
+        WARN "Removing previous AUTOCONFIG configuration"
         ## Remove lines that are between "# AUTOCONFIG" and "# END AUTOCONFIG"
-        err sed -i '/# AUTOCONFIG/,/# END AUTOCONFIG/d' "${HOME}/.bashrc"
+        if err sed -i '/# AUTOCONFIG/,/# END AUTOCONFIG/d' "${HOME}/.bashrc"; then
+            PASS "Previous AUTOCONFIG configuration removed successfully."
+        else
+            FAIL "Failed to remove previous AUTOCONFIG configuration. Please check if you have the necessary permissions. If needed visually inspect the ~/.bashrc file. Exiting ..."
+            exit 1
+        fi
     fi
 
 
-    INFO "Adding bash config ..."
+    INFO "Configuring bash settings..."
     # shellcheck disable=SC2129
-    echo "${AUTOCONFIG_START}" >> "${HOME}/.bashrc"
-    echo "source ${AUTOCONFIG_DIR}/config/bash/terminal_prompt" >> "${HOME}/.bashrc"
-    echo "source ${AUTOCONFIG_DIR}/config/bash/aliases" >> "${HOME}/.bashrc"
-    echo "${AUTOCONFIG_END}" >> "${HOME}/.bashrc"
+    if echo "${AUTOCONFIG_START}" >> "${HOME}/.bashrc"; then
+        PASS "Added AUTOCONFIG start tag"
+    else
+        FAIL "Failed to add AUTOCONFIG start tag. Please ensure you have the necessary permissions. Exiting ..."
+        exit 1
+    fi
+    if echo "source ${AUTOCONFIG_DIR}/config/bash/terminal_prompt" >> "${HOME}/.bashrc"; then
+        PASS "Added terminal prompt configuration"
+    else
+        FAIL "Failed to add terminal prompt configuration. Please ensure you have the necessary permissions. Exiting ..."
+        exit 1
+    fi
+    if echo "source ${AUTOCONFIG_DIR}/config/bash/aliases" >> "${HOME}/.bashrc"; then
+        PASS "Added aliases configuration"
+    else
+        FAIL "Failed to add aliases configuration. Please ensure you have the necessary permissions. Exiting ..."
+        exit 1
+    fi
+    if echo "${AUTOCONFIG_END}" >> "${HOME}/.bashrc"; then
+        PASS "Added AUTOCONFIG end tag"
+    else
+        FAIL "Failed to add AUTOCONFIG end tag. Please ensure you have the necessary permissions. Exiting ..."
+        exit 1
+    fi
 }
 
 # MAIN
 
 ## Prompt the user to configure .bashrc
-echo -e "\n"
-WARN -n "Step $((++STEP)): "
-WARN "Configuring .bashrc..."
-WARN "${DELIMITER}"
-
-
-if [ "$SILENT_MODE" = false ]; then
-    # shellcheck disable=SC1091
-    read -r -p "Proceed with configuring .bashrc? [Y/N]  " yn
-    case $yn in
-        [Yy]* ) configure_bashrc;;
-        [Nn]* ) 
-                echo -n "Skipping configuring .bashrc "
-                # shellcheck disable=SC2034
-                for i in {1..8}; do echo -n "." && sleep 0.25; done;;
-        * ) echo "Please answer Y or N.";;
-    esac
-else
-    configure_bashrc
-fi
+print_delimiter "Configuring .bashrc..."
+prompt_and_execute "configuring .bashrc" configure_bashrc
+NEWLINE
+PASS "Configured .bashrc successfully."
