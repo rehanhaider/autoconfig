@@ -83,3 +83,4 @@ check_wac_dir_exists() {
 alias PROMPT='prompt_and_execute'
 alias RUN='run_command'
 alias CHECK='check_wac_dir_exists'
+alias DELIM='print_delimiter'

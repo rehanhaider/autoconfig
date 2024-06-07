@@ -18,18 +18,18 @@ install_packages() {
 # MAIN
 
 ## Prompt the user to update packages
-print_delimiter "Updating apt packages..."
-prompt_and_execute "updating apt packages" update_packages
+DELIM "Updating apt packages..."
+PROMPT "updating apt packages" update_packages
 NEWLINE
 PASS "Packages updated successfully."
 
-print_delimiter "Upgrading apt packages..."
-prompt_and_execute "upgrading apt packages" upgrade_packages
+DELIM "Upgrading apt packages..."
+PROMPT "upgrading apt packages" upgrade_packages
 NEWLINE
 PASS "Packages upgraded successfully."
 
 ## Prompt the user to install required packages
-print_delimiter "Installing required packages..."
-prompt_and_execute "installing required packages" install_packages
+DELIM "Installing required packages..."
+PROMPT "installing required packages" install_packages
 NEWLINE
 PASS "Required packages installed successfully."

@@ -33,7 +33,7 @@ configure_bashrc() {
     fi
 
 
-    INFO "Configuring bash settings..."
+    WARN "Configuring bash settings..."
     # shellcheck disable=SC2129
     RUN "Add AUTOCONFIG start tag" "echo '${AUTOCONFIG_START}' >> ${HOME}/.bashrc"
     RUN "Add terminal prompt configuration" "echo 'source ${AUTOCONFIG_DIR}/config/bash/terminal_prompt' >> ${HOME}/.bashrc"
@@ -44,7 +44,7 @@ configure_bashrc() {
 # MAIN
 
 ## Prompt the user to configure .bashrc
-print_delimiter "Configuring .bashrc..."
-prompt_and_execute "configuring .bashrc" configure_bashrc
+DELIM "Configuring .bashrc..."
+PROMPT "configuring .bashrc" configure_bashrc
 NEWLINE
 PASS "Configured .bashrc successfully."

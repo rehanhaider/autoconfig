@@ -67,20 +67,20 @@ copy_config() {
 # Main
 
 ## Imform the user that AUTOCONFIG directories are being created
-print_delimiter "Creating AUTOCONFIG directories..."
+DELIM "Creating AUTOCONFIG directories..."
 PROMPT "creating AUTOCONFIG directories" prepare_dir
 NEWLINE
 PASS "AUTOCONFIG directories created successfully."
 
 ## Prompt the user to create backups of existing AUTOCONFIG configuration
-print_delimiter "Creating backups of existing AUTOCONFIG configuration..."
+DELIM "Creating backups of existing AUTOCONFIG configuration..."
 PROMPT "creating backups of existing AUTOCONFIG configuration" backup_config
 NEWLINE
 PASS "AUTOCONFIG backup configured successfully."
 
 ## Prompt the user that new AUTOCONFIG assets are being copied to the AUTOCONFIG_DIR
 
-print_delimiter "Copying new AUTOCONFIG configurations..."
+DELIM "Copying new AUTOCONFIG configurations..."
 PROMPT "copying new AUTOCONFIG configurations" copy_config
 NEWLINE
 PASS "AUTOCONFIG directories configured successfully."

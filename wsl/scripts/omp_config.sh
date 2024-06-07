@@ -94,13 +94,13 @@ configure_omp() {
     RUN "AUTOCONFIG end marker" "echo '${AUTOCONFIG_END}' >> ${HOME}/.profile"
 }
 
-print_delimiter "Installing Oh My Posh..."
-prompt_and_execute "installation of Oh My Posh" install_omp
+DELIM "Installing Oh My Posh..."
+PROMPT "installation of Oh My Posh" install_omp
 NEWLINE
 PASS "Installed Oh My Posh successfully"
 
 
-print_delimiter "Configuring Oh My Posh..."
-prompt_and_execute "configuration of Oh My Posh" configure_omp
+DELIM "Configuring Oh My Posh..."
+PROMPT "configuration of Oh My Posh" configure_omp
 NEWLINE
 PASS "Configured Oh My Posh successfully."
