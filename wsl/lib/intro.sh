@@ -9,7 +9,7 @@ I am not responsible for any damage or loss caused by this script."
 rprint "${COLOR_WARN}" "${DELIMITER}"
 rprint "${COLOR_PASS}" "Author: Rehan Haider"
 rprint "${COLOR_PASS}" "GitHub: https://github.com/rehanhaider/wsl-autoconfig"
-rprint "${COLOR_PASS}" "Version: 0.1"
+rprint "${COLOR_PASS}" "Version: 1.0"
 rprint "${COLOR_WARN}" "${DELIMITER}"
 
 # Reset the colour

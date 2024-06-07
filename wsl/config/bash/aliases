@@ -2,7 +2,7 @@
 
 # Navigation
 alias lsa='ls -AlF'
-
+alias lsl='ls -lF'
 
 # Tools
 alias c='code .' # Open current directory in VS Code

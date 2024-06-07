@@ -82,7 +82,7 @@ rprint "${COLOR_WARN}" "${DELIMITER}"
 
 
 # shellcheck disable=SC1091
-#source "${SCRIPT_DIR}/install_packages.sh"
+source "${SCRIPT_DIR}/install_packages.sh"
 
 # shellcheck disable=SC1091
 source "${SCRIPT_DIR}/prepare_wac.sh"
