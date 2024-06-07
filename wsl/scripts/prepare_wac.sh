@@ -7,17 +7,17 @@
 prepare() {
     # Create the AUTOCONFIG_DIR 
     if [ -d "$AUTOCONFIG_DIR" ]; then
-        rprint "${INFO}" "AUTOCONFIG directory already exists"
+        INFO "AUTOCONFIG directory already exists"
     else
-        rprint "${INFO}" "Creating AUTOCONFIG directory..."
+        INFO "Creating AUTOCONFIG directory..."
         err mkdir -p "$AUTOCONFIG_DIR"
     fi
 
     # Create the AUTOCONFIG_BACKUPS_DIR
     if [ -d "$AUTOCONFIG_BACKUPS_DIR" ]; then
-        rprint "${INFO}" "AUTOCONFIG backups directory already exists"
+        INFO "AUTOCONFIG backups directory already exists"
     else
-        rprint "${INFO}" "Creating AUTOCONFIG backups directory..."
+        INFO "Creating AUTOCONFIG backups directory..."
         err mkdir -p "$AUTOCONFIG_BACKUPS_DIR"
     fi
 
@@ -28,9 +28,9 @@ prepare() {
     for dir in "${directories[@]}"; do
         # Check if the directory already exists
         if [ -d "$AUTOCONFIG_BACKUPS_DIR/$dir" ]; then
-            rprint "${INFO}" "AUTOCONFIG backups ${dir} directory already exists"
+            INFO "AUTOCONFIG backups ${dir} directory already exists"
         else
-            rprint "${INFO}" "Creating AUTOCONFIG backups ${dir} directory..."
+            INFO "Creating AUTOCONFIG backups ${dir} directory..."
             err mkdir -p "$AUTOCONFIG_BACKUPS_DIR/$dir"
         fi
     done
@@ -41,20 +41,20 @@ backup() {
     # This script copies the assets from WSL folder to the AUTOCONFIG_DIR
     # Backup exitig config folder
     if [ -d "$AUTOCONFIG_DIR/config" ]; then
-        rprint "${INFO}" "Backing up existing config folder ..."
-        rprint "${INFO}" "Only the latest config will be stored, older configs will be overwritten ..."
+        INFO "Backing up existing config folder ..."
+        INFO "Only the latest config will be stored, older configs will be overwritten ..."
         err mv "$AUTOCONFIG_DIR/config" "${AUTOCONFIG_BACKUPS_DIR}/config/config_wac_$(date +%Y%m%d%H%M%S).bak"
-        rprint "${INFO}" "Backups stored in ${AUTOCONFIG_BACKUPS_DIR}/config/config_wac_$(date +%Y%m%d%H%M%S).bak"
+        INFO "Backups stored in ${AUTOCONFIG_BACKUPS_DIR}/config/config_wac_$(date +%Y%m%d%H%M%S).bak"
     else
-        rprint "${INFO}" "No existing config folder found ..."
-        rprint "${INFO}" "Proceeding with installation ..."
+        INFO "No existing config folder found ..."
+        INFO "Proceeding with installation ..."
     fi
 }
 
 ## Copy the assets to the AUTOCONFIG_DIR
 copy_config() {
     # Copy the assets to the AUTOCONFIG_DIR
-    rprint "${INFO}" "Copying assets to the autoconfig directory ..."
+    INFO "Copying assets to the autoconfig directory ..."
     err cp -r "$CUR_DIR/wsl/config" "$AUTOCONFIG_DIR"
 }
 
@@ -62,18 +62,18 @@ copy_config() {
 
 ## Imform the user that AUTOCONFIG directories are being created
 echo -e "\n"
-rprint "${WARNING}" -n "Step $((++STEP)): "
-rprint "${WARNING}" "Creating AUTOCONFIG directories..."
-rprint "${WARNING}" "${DELIMITER}"
+WARN -n "Step $((++STEP)): "
+WARN "Creating AUTOCONFIG directories..."
+WARN "${DELIMITER}"
 
 prepare
 
 
 ## Prompt the user to create backups of existing AUTOCONFIG configuration
 echo -e "\n"
-rprint "${WARNING}" -n "Step $((++STEP)): "
-rprint "${WARNING}" "Creating backups of existing AUTOCONFIG configuration..."
-rprint "${WARNING}" "${DELIMITER}"
+WARN -n "Step $((++STEP)): "
+WARN "Creating backups of existing AUTOCONFIG configuration..."
+WARN "${DELIMITER}"
 
 
 if [ "$SILENT_MODE" = false ]; then
@@ -93,8 +93,8 @@ fi
 
 ## Prompt the user that new AUTOCONFIG assets are being copied to the AUTOCONFIG_DIR
 echo -e "\n"
-rprint "${WARNING}" -n "Step $((++STEP)): "
-rprint "${WARNING}" "Copying new AUTOCONFIG configurations..."
-rprint "${WARNING}" "${DELIMITER}"
+WARN -n "Step $((++STEP)): "
+WARN "Copying new AUTOCONFIG configurations..."
+WARN "${DELIMITER}"
 
 copy_config

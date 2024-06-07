@@ -1,4 +1,5 @@
 #!/bin/bash
+shopt -s expand_aliases
 
 # Set default values
 SILENT_MODE=true
@@ -40,7 +41,7 @@ source "${STATIC_DIR}/intro.sh"
 
 if [ "$SILENT_MODE" = true ]; then
 	# Display ASCII Art
-	rprint "${ERROR}" "\nRunning in silent mode ..."
+	FAIL "\nRunning in silent mode ..."
 fi
 
 
@@ -56,18 +57,18 @@ if [ "$SILENT_MODE" = false ]; then
 		esac
 	done
 fi
-rprint "${WARNING}" "\n${DELIMITER}"
-rprint "${INFO}" -n "\nWSL Autoconfig in starting "
+WARN "\n${DELIMITER}"
+INFO -n "\nWSL Autoconfig in starting "
 
 
 
 # Sleep for 5 seconds
 # shellcheck disable=SC2034
 for i in {1..4}; do
-	rprint "${INFO}" -n "."
+	INFO -n "."
 	sleep 0.25
 done
-rprint "${WARNING}" "\n\n${DELIMITER}"
+WARN "\n\n${DELIMITER}"
 
 
 

@@ -2,10 +2,10 @@
 
 # Define color codes
 # shellcheck disable=SC2034
-ERROR='\033[0;31m'
-SUCCESS='\033[0;32m'
-WARNING='\033[0;33m'
-INFO='\033[0m' # No Color
+COLOR_ERROR='\033[0;31m'
+COLOR_SUCCESS='\033[0;32m'
+COLOR_WARNING='\033[0;33m'
+COLOR_INFO='\033[0m' # No Color
 
 
 DELIMITER="------------------------------------------------------------------------------------"
@@ -37,7 +37,10 @@ err()(set -o pipefail;"$@" 2> >(sed $'s,.*,\e[31m&\e[m,'>&2))
 export -f err
 
 
-
+alias INFO='rprint $COLOR_INFO'
+alias PASS='rprint $COLOR_SUCCESS'
+alias FAIL='rprint $COLOR_ERROR'
+alias WARN='rprint $COLOR_WARNING'
 
 
 

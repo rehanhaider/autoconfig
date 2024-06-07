@@ -3,32 +3,32 @@
 # DEFINITIONS
 
 configure_bashrc() {
-    rprint "${INFO}" "Backing up existing .bashrc ..."
+    INFO "Backing up existing .bashrc ..."
     if [ ! -d "${AUTOCONFIG_BACKUPS_DIR}/bash" ]; then
         err mkdir -p "${AUTOCONFIG_BACKUPS_DIR}/bash"
     fi
     err cp "${HOME}/.bashrc" "${AUTOCONFIG_BACKUPS_DIR}/bash/.bashrc_wac_$(date +%Y%m%d%H%M%S)"
     # Keep the last MAX_BACKUPS backups, delete the rest. Implement using find and awk
-    rprint "${INFO}" "Keeping the last ${MAX_BACKUPS} backups. Older backups will be deleted ..."
+    INFO "Keeping the last ${MAX_BACKUPS} backups. Older backups will be deleted ..."
     err find "${AUTOCONFIG_BACKUPS_DIR}/bash" -name ".bashrc_wac_*" -type f | sort -r | awk 'NR>'"${MAX_BACKUPS}" | xargs rm -f
-    rprint "${INFO}" "Backed up as ${AUTOCONFIG_BACKUPS_DIR}/.bashrc_wac_$(date +%Y%m%d%H%M%S)"
-    rprint "${INFO}" "Checking if .bashrc exists ..."
+    INFO "Backed up as ${AUTOCONFIG_BACKUPS_DIR}/.bashrc_wac_$(date +%Y%m%d%H%M%S)"
+    INFO "Checking if .bashrc exists ..."
     ## Check if .bashrc exists
     if [ ! -f "${HOME}/.bashrc" ]; then
        err touch "${HOME}/.bashrc"
-       rprint "${INFO}" "${HOME}/.bashrc created"
+       INFO "${HOME}/.bashrc created"
     fi
-    rprint "${INFO}" "Checking if previous AUTOCONFIG configuration exists ..."
+    INFO "Checking if previous AUTOCONFIG configuration exists ..."
     # Check if # AUTOCONFIG exists in .bashrc
     if grep -q "# AUTOCONFIG" "${HOME}/.bashrc"; then
-        rprint "${INFO}" "Previous AUTOCONFIG configuration found."
-        rprint "${INFO}" "Removing previous AUTOCONFIG configuration"
+        INFO "Previous AUTOCONFIG configuration found."
+        INFO "Removing previous AUTOCONFIG configuration"
         ## Remove lines that are between "# AUTOCONFIG" and "# END AUTOCONFIG"
         err sed -i '/# AUTOCONFIG/,/# END AUTOCONFIG/d' "${HOME}/.bashrc"
     fi
 
 
-    rprint "${INFO}" "Adding bash config ..."
+    INFO "Adding bash config ..."
     # shellcheck disable=SC2129
     echo "${AUTOCONFIG_START}" >> "${HOME}/.bashrc"
     echo "source ${AUTOCONFIG_DIR}/config/bash/terminal_prompt" >> "${HOME}/.bashrc"
@@ -40,9 +40,9 @@ configure_bashrc() {
 
 ## Prompt the user to configure .bashrc
 echo -e "\n"
-rprint "${WARNING}" -n "Step $((++STEP)): "
-rprint "${WARNING}" "Configuring .bashrc..."
-rprint "${WARNING}" "${DELIMITER}"
+WARN -n "Step $((++STEP)): "
+WARN "Configuring .bashrc..."
+WARN "${DELIMITER}"
 
 
 if [ "$SILENT_MODE" = false ]; then

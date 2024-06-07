@@ -5,11 +5,11 @@
 update_packages() {
     err sudo apt update -y
     echo -e "\n"
-    rprint "${WARNING}" -n "Step $((++STEP)): "
-    rprint "${WARNING}" "Updating packages..."
-    rprint "${WARNING}" "${DELIMITER}"
+    WARN -n "Step $((++STEP)): "
+    WARN "Updating packages..."
+    WARN "${DELIMITER}"
     err sudo apt upgrade -y
-    rprint "${INFO}" "Packages updated successfully."
+    INFO "Packages updated successfully."
 }
 
 ## Install required packages
@@ -21,9 +21,9 @@ install_packages() {
 
 ## Prompt the user to update packages
 echo -e "\n"
-rprint "${WARNING}" -n "Step $((++STEP)): "
-rprint "${WARNING}" "Updating package lists..."
-rprint "${WARNING}" "${DELIMITER}"
+WARN -n "Step $((++STEP)): "
+WARN "Updating package lists..."
+WARN "${DELIMITER}"
 
 
 if [ "$SILENT_MODE" = false ]; then
@@ -44,9 +44,9 @@ fi
 
 ## Prompt the user to install required packages
 echo -e "\n"
-rprint "${WARNING}" -n "Step $((++STEP)): "
-rprint "${WARNING}" "Installing required packaes..."
-rprint "${WARNING}" "${DELIMITER}"
+WARN -n "Step $((++STEP)): "
+WARN "Installing required packaes..."
+WARN "${DELIMITER}"
 
 
 if [ "$SILENT_MODE" = false ]; then
