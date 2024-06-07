@@ -1,10 +1,8 @@
 #!/bin/bash
 
+# DEFINITIONS
+
 configure_bashrc() {
-    echo -e "\n"
-    rprint "${WARNING}" -n "Step $((++STEP)): "
-    rprint "${WARNING}" "Configuring .bashrc..."
-    rprint "${WARNING}" "${DELIMITER}"
     rprint "${INFO}" "Backing up existing .bashrc ..."
     if [ ! -d "${AUTOCONFIG_BACKUPS_DIR}/bash" ]; then
         err mkdir -p "${AUTOCONFIG_BACKUPS_DIR}/bash"
@@ -31,9 +29,21 @@ configure_bashrc() {
 
 
     rprint "${INFO}" "Adding bash config ..."
-    { echo "${AUTOCONFIG_START}" ; echo "source ${AUTOCONFIG_DIR}/config/bash/terminal_prompt"; } >> "${HOME}/.bashrc"
-    { echo "source ${AUTOCONFIG_DIR}/config/bash/aliases"; echo "${AUTOCONFIG_END}" ; } >> "${HOME}/.bashrc"
+    # shellcheck disable=SC2129
+    echo "${AUTOCONFIG_START}" >> "${HOME}/.bashrc"
+    echo "source ${AUTOCONFIG_DIR}/config/bash/terminal_prompt" >> "${HOME}/.bashrc"
+    echo "source ${AUTOCONFIG_DIR}/config/bash/aliases" >> "${HOME}/.bashrc"
+    echo "${AUTOCONFIG_END}" >> "${HOME}/.bashrc"
 }
+
+# MAIN
+
+## Prompt the user to configure .bashrc
+echo -e "\n"
+rprint "${WARNING}" -n "Step $((++STEP)): "
+rprint "${WARNING}" "Configuring .bashrc..."
+rprint "${WARNING}" "${DELIMITER}"
+
 
 if [ "$SILENT_MODE" = false ]; then
     # shellcheck disable=SC1091

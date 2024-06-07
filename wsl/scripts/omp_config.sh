@@ -2,10 +2,6 @@
 
 configure_omp() {
     theme="quick-term-custom.omp.json"
-    echo -e "\n"
-    rprint "${WARNING}" -n "Step $((++STEP)): "
-    rprint "${WARNING}" "Configuring Oh My Posh..."
-    rprint "${WARNING}" "${DELIMITER}"
     ## Check if Oh My Posh binary exists
     if [ ! -f /usr/local/bin/oh-my-posh ]; then
         rprint "${INFO}" "Oh My Posh binary does not exist..."
@@ -59,11 +55,19 @@ configure_omp() {
     echo "${AUTOCONFIG_END}" >> "${HOME}/.profile"
 }
 
+
+
+echo -e "\n"
+rprint "${WARNING}" -n "Step $((++STEP)): "
+rprint "${WARNING}" "Configuring Oh My Posh..."
+rprint "${WARNING}" "${DELIMITER}"
+
+
 if [ "$SILENT_MODE" = false ]; then
     # shellcheck disable=SC1091
     read -r -p "Proceed with configuring Oh My Posh? [Y/N]  " yn
     case $yn in
-        [Yy]* ) configure_bashrc;;
+        [Yy]* ) configure_omp;;
         [Nn]* ) 
                 echo -n "Skipping configuring Oh My Posh "
                 # shellcheck disable=SC2034

@@ -1,11 +1,10 @@
 #!/bin/bash
 
+
+# DEFINITIONS
+
+## Prepare the AUTOCONFIG directories
 prepare() {
-    echo -e "\n"
-    rprint "${WARNING}" -n "Step $((++STEP)): "
-    rprint "${WARNING}" "Creating AUTOCONFIG directories..."
-    rprint "${WARNING}" "${DELIMITER}"
-    
     # Create the AUTOCONFIG_DIR 
     if [ -d "$AUTOCONFIG_DIR" ]; then
         rprint "${INFO}" "AUTOCONFIG directory already exists"
@@ -37,12 +36,8 @@ prepare() {
     done
 }
 
+## Backup existing AUTOCONFIG configuration
 backup() {
-    echo -e "\n"
-    rprint "${WARNING}" -n "Step $((++STEP)): "
-    rprint "${WARNING}" "Creating backups of existing AUTOCONFIG configuration..."
-    rprint "${WARNING}" "${DELIMITER}"
-
     # This script copies the assets from WSL folder to the AUTOCONFIG_DIR
     # Backup exitig config folder
     if [ -d "$AUTOCONFIG_DIR/config" ]; then
@@ -56,6 +51,7 @@ backup() {
     fi
 }
 
+## Copy the assets to the AUTOCONFIG_DIR
 copy_config() {
     # Copy the assets to the AUTOCONFIG_DIR
     rprint "${INFO}" "Copying assets to the autoconfig directory ..."
@@ -64,7 +60,21 @@ copy_config() {
 
 # Main
 
+## Imform the user that AUTOCONFIG directories are being created
+echo -e "\n"
+rprint "${WARNING}" -n "Step $((++STEP)): "
+rprint "${WARNING}" "Creating AUTOCONFIG directories..."
+rprint "${WARNING}" "${DELIMITER}"
+
 prepare
+
+
+## Prompt the user to create backups of existing AUTOCONFIG configuration
+echo -e "\n"
+rprint "${WARNING}" -n "Step $((++STEP)): "
+rprint "${WARNING}" "Creating backups of existing AUTOCONFIG configuration..."
+rprint "${WARNING}" "${DELIMITER}"
+
 
 if [ "$SILENT_MODE" = false ]; then
     # shellcheck disable=SC1091
@@ -80,5 +90,11 @@ if [ "$SILENT_MODE" = false ]; then
 else
     backup
 fi
+
+## Prompt the user that new AUTOCONFIG assets are being copied to the AUTOCONFIG_DIR
+echo -e "\n"
+rprint "${WARNING}" -n "Step $((++STEP)): "
+rprint "${WARNING}" "Copying new AUTOCONFIG configurations..."
+rprint "${WARNING}" "${DELIMITER}"
 
 copy_config

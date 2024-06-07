@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Set default values
-SILENT_MODE=false
-AUTOCONFIG_DEBUG=1
+SILENT_MODE=true
 # shellcheck disable=SC2034
 MAX_BACKUPS=10 
 CUR_DIR=$(pwd)
@@ -17,15 +16,15 @@ THEME_DIR="${CUR_DIR}/themes"
 # shellcheck disable=SC2034
 STEP=0
 # Set silent mode
-while getopts ":s" opt; do
+while getopts ":i" opt; do
 	case ${opt} in
-		s )
-			SILENT_MODE=true
+		i )
+			SILENT_MODE=false
 			;;
 		* )
-			echo "Usage: $0 [-s]"
+			echo "Usage: $0 [-i]"
 			echo "Options:"
-			echo "  -s  Silent mode"
+			echo "  -i  Interactive mode"
 			exit 1
 			;;
 	esac
@@ -73,7 +72,7 @@ rprint "${WARNING}" "\n\n${DELIMITER}"
 
 
 # shellcheck disable=SC1091
-source "${SCRIPT_DIR}/install_packages.sh"
+#source "${SCRIPT_DIR}/install_packages.sh"
 
 # shellcheck disable=SC1091
 source "${SCRIPT_DIR}/prepare_wac.sh"

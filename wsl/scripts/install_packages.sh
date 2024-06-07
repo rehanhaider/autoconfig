@@ -1,18 +1,30 @@
 #!/bin/bash
 
-# Update apt packages
+# DEFINITIONS
+## Update apt packages
 update_packages() {
-    echo -e "\n"
-    rprint "${WARNING}" -n "Step $((++STEP)): "
-    rprint "${WARNING}" "Updating package lists..."
-    rprint "${WARNING}" "${DELIMITER}"
     err sudo apt update -y
     echo -e "\n"
     rprint "${WARNING}" -n "Step $((++STEP)): "
     rprint "${WARNING}" "Updating packages..."
     rprint "${WARNING}" "${DELIMITER}"
     err sudo apt upgrade -y
+    rprint "${INFO}" "Packages updated successfully."
 }
+
+## Install required packages
+install_packages() {
+    err sudo apt install -y curl nano wget
+}
+
+# MAIN
+
+## Prompt the user to update packages
+echo -e "\n"
+rprint "${WARNING}" -n "Step $((++STEP)): "
+rprint "${WARNING}" "Updating package lists..."
+rprint "${WARNING}" "${DELIMITER}"
+
 
 if [ "$SILENT_MODE" = false ]; then
     # shellcheck disable=SC1091
@@ -30,15 +42,12 @@ else
     update_packages
 fi
 
+## Prompt the user to install required packages
+echo -e "\n"
+rprint "${WARNING}" -n "Step $((++STEP)): "
+rprint "${WARNING}" "Installing required packaes..."
+rprint "${WARNING}" "${DELIMITER}"
 
-# Install required packages
-install_packages() {
-    echo -e "\n"
-    rprint "${WARNING}" -n "Step $((++STEP)): "
-    rprint "${WARNING}" "Installing required packaes..."
-    rprint "${WARNING}" "${DELIMITER}"
-    sudo apt install -y curl nano wget
-}
 
 if [ "$SILENT_MODE" = false ]; then
     # shellcheck disable=SC1091
