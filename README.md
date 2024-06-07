@@ -13,6 +13,18 @@ It has two components:
 1. [WinConfig.ps1 - This script configures Windows.](#windows-configuration)
 2. [wsl_config.sh - This script configures WSL.](#wsl-configuration)
 
+### Installing WSL
+
+To use you can clone this repositorya and run `autoconfig.sh` from the root directory.
+
+```bash
+git clone https://github.com/rehanhaider/autoconfig.git
+cd autoconfig
+./autoconfig.sh
+```
+
+You will need to install nerd fonts and configure them in your Microsoft Terminal settings. A font is included in the `fonts` directory.
+
 ## Windows Configuration
 
 TBD
