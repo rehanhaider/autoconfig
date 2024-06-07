@@ -2,11 +2,17 @@
 
 # Set default values
 SILENT_MODE=false
-MAX_BACKUPS=10
+AUTOCONFIG_DEBUG=1
+# shellcheck disable=SC2034
+MAX_BACKUPS=10 
 CUR_DIR=$(pwd)
 AUTOCONFIG_DIR="${HOME}/.autoconfig"
+# shellcheck disable=SC2034
+AUTOCONFIG_BACKUPS_DIR="${AUTOCONFIG_DIR}/.backups"
 SCRIPT_DIR="${CUR_DIR}/wsl/scripts"
 STATIC_DIR="${CUR_DIR}/wsl/static"
+# shellcheck disable=SC2034
+THEME_DIR="${CUR_DIR}/themes"
 
 # shellcheck disable=SC2034
 STEP=0
@@ -35,7 +41,7 @@ source "${STATIC_DIR}/intro.sh"
 
 if [ "$SILENT_MODE" = true ]; then
 	# Display ASCII Art
-	echo -e "${RED}\nRunning in silent mode ...${NC}"
+	rprint "${ERROR}" "\nRunning in silent mode ..."
 fi
 
 
@@ -51,29 +57,30 @@ if [ "$SILENT_MODE" = false ]; then
 		esac
 	done
 fi
-echo -e "\n${DELIMITER}"
-echo -e -n "\nWSL Autoconfig in starting "
+rprint "${WARNING}" "\n${DELIMITER}"
+rprint "${INFO}" -n "\nWSL Autoconfig in starting "
 
 
 
 # Sleep for 5 seconds
 # shellcheck disable=SC2034
-for i in {1..2}; do
-	echo -n "."
+for i in {1..4}; do
+	rprint "${INFO}" -n "."
 	sleep 0.25
 done
-echo -e "\n\n${DELIMITER}"
+rprint "${WARNING}" "\n\n${DELIMITER}"
 
 
 
 # shellcheck disable=SC1091
-#source "${SCRIPT_DIR}/packages.sh"
+source "${SCRIPT_DIR}/install_packages.sh"
 
 # shellcheck disable=SC1091
-source "${SCRIPT_DIR}/setup.sh"
+source "${SCRIPT_DIR}/prepare_wac.sh"
 
 # shellcheck disable=SC1091
-source "${SCRIPT_DIR}/bashrc.sh"
+source "${SCRIPT_DIR}/bash_config.sh"
 
 # shellcheck disable=SC1091
-#source "${SCRIPT_DIR}/omp.sh"
+source "${SCRIPT_DIR}/omp_config.sh"
+

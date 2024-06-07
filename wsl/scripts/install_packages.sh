@@ -3,15 +3,15 @@
 # Update apt packages
 update_packages() {
     echo -e "\n"
-    echo -e -n "${BOLD}${YELLOW}Step $((++STEP)): ${NC}"
-    echo -e "${BOLD}${YELLOW}Updating package lists ...${NC}"
-    echo -e "${DELIMITER}"
-    sudo apt update -y
+    rprint "${WARNING}" -n "Step $((++STEP)): "
+    rprint "${WARNING}" "Updating package lists..."
+    rprint "${WARNING}" "${DELIMITER}"
+    err sudo apt update -y
     echo -e "\n"
-    echo -e -n "${BOLD}${YELLOW}Step $((++STEP)): ${NC}"
-    echo -e "${BOLD}${YELLOW}Updating packages ...${NC}"
-    echo -e "${DELIMITER}"
-    sudo apt upgrade -y
+    rprint "${WARNING}" -n "Step $((++STEP)): "
+    rprint "${WARNING}" "Updating packages..."
+    rprint "${WARNING}" "${DELIMITER}"
+    err sudo apt upgrade -y
 }
 
 if [ "$SILENT_MODE" = false ]; then
@@ -34,9 +34,9 @@ fi
 # Install required packages
 install_packages() {
     echo -e "\n"
-    echo -e -n "${BOLD}${YELLOW}Step $((++STEP)): ${NC}"
-    echo -e "${BOLD}${YELLOW}Installing required packages ...${NC}"
-    echo -e "${DELIMITER}"
+    rprint "${WARNING}" -n "Step $((++STEP)): "
+    rprint "${WARNING}" "Installing required packaes..."
+    rprint "${WARNING}" "${DELIMITER}"
     sudo apt install -y curl nano wget
 }
 

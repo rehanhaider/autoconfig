@@ -2,20 +2,42 @@
 
 # Define color codes
 # shellcheck disable=SC2034
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
-BLUE='\033[0;34m'
-PURPLE='\033[0;35m'
-CYAN='\033[0;36m'
-NC='\033[0m' # No Color
-BOLD='\033[1m'
-UNDERLINE='\033[4m'
+ERROR='\033[0;31m'
+SUCCESS='\033[0;32m'
+WARNING='\033[0;33m'
+INFO='\033[0m' # No Color
 
-DELIMITER="${BOLD}${YELLOW}------------------------------------------------------------------------------------${NC}"
+
+DELIMITER="------------------------------------------------------------------------------------"
 AUTOCONFIG_START="# AUTOCONFIG
-# ------------------------------------------------------------------------------------------------------------
-"
+# ------------------------------------------------------------------------------------------------------------"
 AUTOCONFIG_END="# ------------------------------------------------------------------------------------------------------------
-# END AUTOCONFIG
-"
+# END AUTOCONFIG"
+
+rprint() {
+    local color="$1"
+    shift
+    local no_newline=false
+    if [[ "$1" == "-n" ]]; then
+        no_newline=true
+        shift
+    fi
+    local text="$*"
+    if $no_newline; then
+        printf "%b%b%b" "$color" "$text" "\033[0m"
+    else
+        printf "%b%b%b\n" "$color" "$text" "\033[0m"
+    fi
+}
+export -f rprint
+
+
+
+err()(set -o pipefail;"$@" 2> >(sed $'s,.*,\e[31m&\e[m,'>&2))
+export -f err
+
+
+
+
+
+

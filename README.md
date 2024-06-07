@@ -2,7 +2,9 @@
 
 This repository contains a script that automates the configuration of Windows and WSL. It installs the necessary software and tools for development and personal use.
 
-This is an opinionated configuration, suitable for people who use WSL2 for development and Windows for personal use.
+This is an opinionated configuration, suitable for people who use WSL2 for development and Windows for personal use. This is in part inspired by [Omakub](https://omakub.org/), a script that configures Ubuntu OS.
+
+I had Autoconfig for my own but thought others might find it useful as well.
 
 ## Usage
 

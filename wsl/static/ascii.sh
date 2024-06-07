@@ -34,3 +34,5 @@ for i in "${!lines[@]}"; do
 	echo -e "${colors[color_index]}${lines[i]}"
 	sleep 0.1
 done
+
+echo -e "\033[0m" # Reset the color

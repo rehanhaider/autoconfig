@@ -10,4 +10,5 @@ alias c='code .' # Open current directory in VS Code
 # Git
 alias gs='git status'
 alias ga='git add'
+alias gp='git push'
 alias gcm='git commit -m'
