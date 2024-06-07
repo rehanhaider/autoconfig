@@ -1,9 +1,8 @@
-# AUTOCONFIG
-# Terminal configuration
-# ------------------------------------------------------------------------------------------------------------
+#!/bin/bash
 # bash theme - partly inspired by https://github.com/ohmyzsh/ohmyzsh/blob/master/themes/robbyrussell.zsh-theme
 
 __bash_prompt() {
+    # shellcheck disable=SC2016
     local userpart='`export XIT=$?; \
         if [ ! -z "${GITHUB_USER}" ]; then \
             echo -n "\[\033[0;32m\]\u@\h"; \
@@ -15,6 +14,7 @@ __bash_prompt() {
         else \
             echo -n "\[\033[0m\]:"; \
         fi`'
+        # shellcheck disable=SC2016
     local gitbranch='`\
         if [ "$(git config --get devcontainers-theme.hide-status 2>/dev/null)" != 1 ] && \
            [ "$(git config --get codespaces-theme.hide-status 2>/dev/null)" != 1 ]; then \
@@ -35,5 +35,3 @@ __bash_prompt() {
 
 __bash_prompt
 export PROMPT_DIRTRIM=4
-# ------------------------------------------------------------------------------------------------------------
-# END AUTOCONFIG

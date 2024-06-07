@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Navigation
+alias lsa='ls -AlF'
+
+
+# Tools
+alias c='code .' # Open current directory in VS Code
+
+# Git
+alias gs='git status'
+alias ga='git add'
+alias gcm='git commit -m'
