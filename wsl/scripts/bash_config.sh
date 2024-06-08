@@ -38,6 +38,7 @@ configure_bashrc() {
     RUN "Add AUTOCONFIG start tag" "echo '${AUTOCONFIG_START}' >> ${HOME}/.bashrc"
     RUN "Add terminal prompt configuration" "echo 'source ${AUTOCONFIG_DIR}/config/bash/terminal_prompt' >> ${HOME}/.bashrc"
     RUN "Add aliases configuration" "echo 'source ${AUTOCONFIG_DIR}/config/bash/aliases' >> ${HOME}/.bashrc"
+    RUN "Add git configs" "echo 'source ${AUTOCONFIG_DIR}/config/git/ctypes' >> ${HOME}/.bashrc"
     RUN "Add export configuration" "echo 'source ${AUTOCONFIG_DIR}/config/bash/exports' >> ${HOME}/.bashrc"
     RUN "Add AUTOCONFIG end tag" "echo '${AUTOCONFIG_END}' >> ${HOME}/.bashrc"
 }

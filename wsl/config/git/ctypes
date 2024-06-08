@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Define commit types
+FEAT="✨ FEAT"
+FIX="🐛 FIX"
+REFACTOR="♻️ REFACTOR"
+DOCS="📝 DOCS"
+STYLE="💅 STYLE"
+PERF="⚡️ PERF"
+TEST="🔬 TEST"
+CHORE="🔧 CHORE"
+
+# Function to commit with a message
+gcm() {
+    # Verify that only 2 arguments are passed
+    if [ "$#" -ne 2 ]; then
+        echo "Usage: gcm <type> <message>"
+        return 1
+    fi
+
+    # Check if the type is valid
+    local type
+    case "$1" in
+        FEAT) type="$FEAT" ;;
+        FIX) type="$FIX" ;;
+        REFACTOR) type="$REFACTOR" ;;
+        DOCS) type="$DOCS" ;;
+        STYLE) type="$STYLE" ;;
+        PERF) type="$PERF" ;;
+        TEST) type="$TEST" ;;
+        CHORE) type="$CHORE" ;;
+        *)
+            echo "Invalid type: $1"
+            echo "Valid types: FEAT, FIX, REFACTOR, DOCS, STYLE, PERF, TEST, CHORE"
+            return 1
+            ;;
+    esac
+
+    # Commit with the constructed message
+    git commit -m "$type $2"
+}
+
+# Function to add all changes and commit with a message
+gcam() {
+    git add .
+    gcm "$1" "$2"
+}
