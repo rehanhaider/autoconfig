@@ -12,12 +12,9 @@ SCRIPT_DIR="${CUR_DIR}/wsl/scripts"
 LIB_DIR="${CUR_DIR}/wsl/lib"
 # shellcheck disable=SC2034
 THEME_DIR="${CUR_DIR}/themes"
+# shellcheck disable=SC2034
 
-AUTOCONFIG_DIR="${HOME}/.autoconfig"
-# shellcheck disable=SC2034
-AUTOCONFIG_BACKUPS_DIR="${AUTOCONFIG_DIR}/.backups"
-# shellcheck disable=SC2034
-AUTOCONFIG_THEMES_DIR="${AUTOCONFIG_DIR}/poshthemes"
+
 
 # shellcheck disable=SC2034
 STEP=0
@@ -36,6 +33,8 @@ while getopts ":i" opt; do
 	esac
 done
 
+# shellcheck disable=SC1091
+source "${CUR_DIR}/wsl/config/bash/exports"
 # shellcheck disable=SC1091
 source "${LIB_DIR}/ascii.sh"
 # shellcheck disable=SC1091
@@ -83,7 +82,7 @@ rprint "${COLOR_WARN}" "${DELIMITER}"
 
 
 # shellcheck disable=SC1091
-source "${SCRIPT_DIR}/install_packages.sh"
+#source "${SCRIPT_DIR}/install_packages.sh"
 
 # shellcheck disable=SC1091
 source "${SCRIPT_DIR}/prepare_wac.sh"
@@ -92,7 +91,7 @@ source "${SCRIPT_DIR}/prepare_wac.sh"
 source "${SCRIPT_DIR}/bash_config.sh"
 
 # shellcheck disable=SC1091
-source "${SCRIPT_DIR}/omp_config.sh"
+#source "${SCRIPT_DIR}/omp_config.sh"
 
 NEWLINE
 rprint "${COLOR_WARN}" "${DELIMITER}"

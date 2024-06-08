@@ -1,5 +1,3 @@
 #!/bin/bash
-export AUTOCONFIG_OMP_THEME_NAME="quick-term-custom.omp.json"
-export AUTOCONFIG_OMP_THEME_FOLDER="${HOME}/.poshthemes/"
 
-eval "$(oh-my-posh init bash --config "${AUTOCONFIG_OMP_THEME_FOLDER}/${AUTOCONFIG_OMP_THEME_NAME}")"
+eval "$(oh-my-posh init bash --config "${AUTOCONFIG_THEMES_DIR}/${AUTOCONFIG_OMP_THEME_NAME}")"
