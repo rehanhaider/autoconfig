@@ -39,7 +39,7 @@ done
 # shellcheck disable=SC1091
 source "${LIB_DIR}/ascii.sh"
 # shellcheck disable=SC1091
-source "${LIB_DIR}/ddl.sh"
+source "${LIB_DIR}/macros.sh"
 # shellcheck disable=SC1091
 source "${LIB_DIR}/intro.sh"
 
