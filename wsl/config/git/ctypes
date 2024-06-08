@@ -15,20 +15,21 @@ gcm() {
     # Verify that only 2 arguments are passed
     if [ "$#" -ne 2 ]; then
         echo "Usage: gcm <type> <message>"
+        echo "Available type: FEAT, FIX, REFACTOR, DOCS, STYLE, PERF, TEST, CHORE"
         return 1
     fi
 
     # Check if the type is valid
     local type
     case "$1" in
-        FEAT) type="$FEAT" ;;
-        FIX) type="$FIX" ;;
-        REFACTOR) type="$REFACTOR" ;;
-        DOCS) type="$DOCS" ;;
-        STYLE) type="$STYLE" ;;
-        PERF) type="$PERF" ;;
-        TEST) type="$TEST" ;;
-        CHORE) type="$CHORE" ;;
+        FEAT|f) type="$FEAT" ;;
+        FIX|x) type="$FIX" ;;
+        REFACTOR|r) type="$REFACTOR" ;;
+        DOCS|d) type="$DOCS" ;;
+        STYLE|s) type="$STYLE" ;;
+        PERF|p) type="$PERF" ;;
+        TEST|t) type="$TEST" ;;
+        CHORE|c) type="$CHORE" ;;
         *)
             echo "Invalid type: $1"
             echo "Valid types: FEAT, FIX, REFACTOR, DOCS, STYLE, PERF, TEST, CHORE"
