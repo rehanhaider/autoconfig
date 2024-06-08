@@ -38,7 +38,7 @@ source "${CUR_DIR}/wsl/config/bash/exports"
 # shellcheck disable=SC1091
 source "${LIB_DIR}/ascii.sh"
 # shellcheck disable=SC1091
-source "${LIB_DIR}/macros.sh"
+source "${LIB_DIR}/directives.sh"
 # shellcheck disable=SC1091
 source "${LIB_DIR}/intro.sh"
 
