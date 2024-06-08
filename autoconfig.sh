@@ -65,6 +65,7 @@ if [ "$SILENT_MODE" = false ]; then
 	done
 fi
 
+
 rprint "${COLOR_WARN}" "${DELIMITER}"
 NEWLINE
 INFO -n "WSL Autoconfig in starting "
