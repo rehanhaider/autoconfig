@@ -3,16 +3,16 @@
 # DEFINITIONS
 ## Update apt packages
 update_packages() {
-    run_command "Update" "sudo apt update -y"
+    RUN "Update" "sudo apt update -y"
 }
 
 upgrade_packages() {
-    run_command "Upgrade" "sudo apt upgrade -y"
+    RUN "Upgrade" "sudo apt upgrade -y"
 }
 
 ## Install required packages
 install_packages() {
-    run_command "Installation" "sudo apt install -y curl nano wget"
+    RUN "Installation" "sudo apt install -y curl nano wget unzip git"
 }
 
 # MAIN

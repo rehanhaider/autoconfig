@@ -21,10 +21,7 @@ install_omp() {
         WARN "Oh My Posh binary does not exist..."
         ## Install Oh My Posh
         WARN "Installing Oh My Posh from source..."
-        RUN "Download Oh My Posh install script" "curl -s https://ohmyposh.dev/install.sh > ${SCRIPTS_DIR}/omp_install.sh"
-        RUN "Make Oh My Posh install script executable" "chmod +x ${SCRIPTS_DIR}/omp_install.sh"
-        RUN "Install Oh My Posh" "sudo ${SCRIPTS_DIR}/omp_install.sh"
-        RUN "Remove Oh My Posh install script" "rm ${SCRIPTS_DIR}/omp_install.sh"
+        RUN "Install Oh My Posh" "curl -s https://ohmyposh.dev/install.sh | sudo bash"
     fi
 }
 
@@ -82,7 +79,7 @@ configure_omp() {
     RUN "Delete older backups" "find ${AUTOCONFIG_BACKUPS_DIR}/profile -name '._wac_*' -type f | sort -r | awk 'NR>${MAX_BACKUPS}' | xargs rm -f"
 
     ## Check if the the theme name exists in the .profile
-    if grep -q "$AUTOCONFIG_OMP_THEME_NAME" "${HOME}/.profile"; then
+    if grep -q "${AUTOCONFIG_START}" "${HOME}/.profile"; then
         WARN "Removing older AUTOCONFIG data"
         ## Remove lines that are between "# AUTOCONFIG" and "# END AUTOCONFIG"
         RUN "Remove previous AUTOCONFIG configuration" "sed -i '/# AUTOCONFIG/,/# END AUTOCONFIG/d' ${HOME}/.profile"
