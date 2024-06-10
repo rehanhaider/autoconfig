@@ -14,13 +14,14 @@ install_aws_cli() {
 
 link_win_credentials() {
     WIN_USER=$(powershell.exe 'Write-Host $env:UserName')
+    PASS "Logged in Windows User detected: ${WIN_USER}"
+    WIN_USER_PATH=$(find /mnt/c/Users -maxdepth 1 -type d -regextype posix-extended -iregex "/mnt/c/Users/${WIN_USER}")
+    PASS "Windows User Path detected: ${WIN_USER_PATH}"
 
-    WIN_AWS_PATH=$(find /mnt/c/Users -maxdepth 1 -type d -regextype posix-extended -iregex "/mnt/c/Users/${WIN_USER}")
-
-    if [ -d "{$WIN_AWS_PATH}/.aws" ]; then
-        PASS "AWS credentials already linked. Skipping..."
-    else
-        #RUN "Link AWS credentials" "ln -s '/mnt/c/Users/${USER}/.aws' '${HOME}/.aws'"
+    if [[ -d "${WIN_USER_PATH}/.aws/" && ! -d "${HOME}/.aws" ]]; then
+        PASS "Found AWS credentials in Windows."
+        WARN "Symlinking AWS credentials..."
+        RUN "Link AWS credentials" "ln -s '/mnt/c/Users/${WIN_USER}/.aws' '${HOME}/.aws'"
         echo "Linking AWS credentials..."
     fi
 }
