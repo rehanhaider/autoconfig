@@ -81,16 +81,14 @@ rprint "${COLOR_WARN}" "${DELIMITER}"
 
 
 
-# shellcheck disable=SC1091
-source "${SCRIPT_DIR}/install_packages.sh"
-# shellcheck disable=SC1091
+
+# source "${SCRIPT_DIR}/install_packages.sh"
 source "${SCRIPT_DIR}/prepare_wac.sh"
-# shellcheck disable=SC1091
+source "${SCRIPT_DIR}/install_mise.sh"
 source "${SCRIPT_DIR}/bash_config.sh"
-# shellcheck disable=SC1091
 source "${SCRIPT_DIR}/omp_config.sh"
-# shellcheck disable=SC1091
 source "${SCRIPT_DIR}/git_config.sh"
+
 
 NEWLINE
 rprint "${COLOR_WARN}" "${DELIMITER}"
