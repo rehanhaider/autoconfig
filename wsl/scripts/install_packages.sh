@@ -12,7 +12,7 @@ upgrade_packages() {
 
 ## Install required packages
 install_packages() {
-    RUN "Installation" "sudo apt install -y curl nano wget unzip git"
+    RUN "Installation" "sudo apt install -y curl nano wget unzip git gcc g++ make build-essential"
 }
 
 # MAIN

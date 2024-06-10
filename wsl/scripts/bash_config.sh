@@ -40,7 +40,8 @@ configure_bashrc() {
     RUN "Add aliases configuration" "echo 'source ${AUTOCONFIG_DIR}/config/bash/aliases' >> ${HOME}/.bashrc"
     RUN "Add git configs" "echo 'source ${AUTOCONFIG_DIR}/config/git/ctypes' >> ${HOME}/.bashrc"
     RUN "Add export configuration" "echo 'source ${AUTOCONFIG_DIR}/config/bash/exports' >> ${HOME}/.bashrc"
-    RUN "Add Mise configuration" "echo 'source ${AUTOCONFIG_DIR}/config/bash/mise_config' >> ${HOME}/.bashrc"
+    RUN "Add Mise configuration" "echo 'source ${AUTOCONFIG_DIR}/config/mise/mise_config' >> ${HOME}/.bashrc"
+    RUN "Add AWS CLI Autocompletion" "echo 'complete -C '/usr/local/bin/aws_completer' aws' >> ${HOME}/.bashrc"
     RUN "Add AUTOCONFIG end tag" "echo '${AUTOCONFIG_END}' >> ${HOME}/.bashrc"
 }
 

@@ -82,12 +82,13 @@ rprint "${COLOR_WARN}" "${DELIMITER}"
 
 
 
-# source "${SCRIPT_DIR}/install_packages.sh"
+source "${SCRIPT_DIR}/install_packages.sh"
 source "${SCRIPT_DIR}/prepare_wac.sh"
 source "${SCRIPT_DIR}/install_mise.sh"
 source "${SCRIPT_DIR}/bash_config.sh"
 source "${SCRIPT_DIR}/omp_config.sh"
 source "${SCRIPT_DIR}/git_config.sh"
+source "${SCRIPT_DIR}/aws_install.sh"
 
 
 NEWLINE
