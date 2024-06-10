@@ -91,7 +91,7 @@ source "${SCRIPT_DIR}/prepare_wac.sh"
 source "${SCRIPT_DIR}/bash_config.sh"
 
 # shellcheck disable=SC1091
-#source "${SCRIPT_DIR}/omp_config.sh"
+source "${SCRIPT_DIR}/omp_config.sh"
 
 NEWLINE
 rprint "${COLOR_WARN}" "${DELIMITER}"

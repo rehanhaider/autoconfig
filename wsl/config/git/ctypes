@@ -23,7 +23,7 @@ gcm() {
     local type
     case "$1" in
         FEAT|f) type="$FEAT" ;;
-        FIX|x) type="$FIX" ;;
+        FIX|b) type="$FIX" ;;
         REFACTOR|r) type="$REFACTOR" ;;
         DOCS|d) type="$DOCS" ;;
         STYLE|s) type="$STYLE" ;;
