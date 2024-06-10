@@ -33,11 +33,14 @@ setup_cred() {
     git_version=$(git --version | awk '{print $3}')
 
     ## If the git version is greate than 2.39.0
-    if dpkg --compare-versions "${git_version}" gte "2.39.0"; then
+    if dpkg --compare-versions "${git_version}" ge "2.39.0"; then
+        echo "Greater than 2.39.0"
         git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"
-    elif dpkg --compare-versions "${git_version}" gte "2.36.1"; then
+    elif dpkg --compare-versions "${git_version}" ge "2.36.1"; then
+        echo "Greater than 2.36.1"
         git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/libexec/git-core/git-credential-manager.exe"
     elif dpkg --compare-versions "${git_version}" lt "2.36.1"; then
+        echo "Less than 2.36.1"
         git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager-core.exe"
     else
         FAIL "Git version v${git_version} is not supported. Please upgrade to git version 2.36.1 or greater."
