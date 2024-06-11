@@ -26,10 +26,26 @@ link_win_credentials() {
     fi
 }
 
+install_cdk() {
+    ## Check if CDK is already installed
+    if [ -f "/usr/local/bin/cdk" ]; then
+        PASS "CDK is already installed. Skipping..."
+    else 
+        RUN "Install CDK" "mise exec -- npm install -g aws-cdk"
+    fi
+}
+
+
 DELIM "Installing AWS CLI..."
 PROMPT "Install AWS CLI" install_aws_cli
 NEWLINE
 PASS "Installed AWS CLI successfully."
+
+DELIM "Installing AWS CDK..."
+PROMPT "Install AWS CDK" install_cdk
+NEWLINE
+PASS "Installed AWS CDK successfully."
+
 
 DELIM "Linking AWS credentials..."
 PROMPT "Link AWS credentials" link_win_credentials
