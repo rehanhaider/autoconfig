@@ -4,3 +4,4 @@ export AUTOCONFIG_DIR="${HOME}/.autoconfig"
 export AUTOCONFIG_THEMES_DIR="${AUTOCONFIG_DIR}/poshthemes"
 export AUTOCONFIG_BACKUPS_DIR="${AUTOCONFIG_DIR}/.backups"
 export AUTOCONFIG_OMP_THEME_NAME="quick-term-custom.omp.json"
+export SAM_CLI_TELEMETRY=0
