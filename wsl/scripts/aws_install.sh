@@ -36,6 +36,20 @@ install_cdk() {
 }
 
 
+install_sam() {
+    ## Check if SAM is already installed
+    if [ -f "/usr/local/bin/sam" ]; then
+        PASS "SAM is already installed. Skipping..."
+    else 
+        RUN "Download SAM" "curl -L 'https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip' -o 'aws-sam-cli-linux-x86_64.zip'"
+        RUN "Unzip SAM" "unzip aws-sam-cli-linux-x86_64.zip -d sam-installation"
+        RUN "Install SAM" "sudo ./sam-installation/install"
+        RUN "Clean up" "rm -rf sam-installation aws-sam-cli-linux-x86_64.zip"
+    fi
+
+}
+
+
 DELIM "Installing AWS CLI..."
 PROMPT "Install AWS CLI" install_aws_cli
 NEWLINE
@@ -45,6 +59,11 @@ DELIM "Installing AWS CDK..."
 PROMPT "Install AWS CDK" install_cdk
 NEWLINE
 PASS "Installed AWS CDK successfully."
+
+DELIM "Installing AWS SAM CLI..."
+PROMPT "Install AWS SAM CLI" install_sam
+NEWLINE
+PASS "Installed AWS SAM CLI successfully."
 
 
 DELIM "Linking AWS credentials..."
