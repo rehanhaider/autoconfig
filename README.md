@@ -21,10 +21,12 @@ Originally created for my personal use, I decided to share Autoconfig with other
 
 ## Supported Platforms
 
-Tested on the following WSL2 distributions:
+Tested on the following distributions:
 
-1. Ubuntu 22.04
-2. Ubuntu 24.04
+1. Ubuntu 22.04 (Windows 11 + WSL2)
+2. Ubuntu 24.04 (Windows 11 + WSL2)
+
+It may work on other distributions, but it has not been tested.
 
 ## Usage
 
