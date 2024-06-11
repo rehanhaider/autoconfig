@@ -1,17 +1,32 @@
+```bash
+"
+ __          _______ _                      _         _____             __ _
+ \ \        / / ____| |          /\        | |       / ____|           / _(_)
+  \ \  /\  / / (___ | |         /  \  _   _| |_ ___ | |     ___  _ __ | |_ _  __ _
+   \ \/  \/ / \___ \| |        / /\ \| | | | __/ _ \| |    / _ \|  _ \|  _| |/ _  |
+    \  /\  /  ____) | |____   / ____ \ |_| | || (_) | |___| (_) | | | | | | | (_| |
+     \/  \/  |_____/|______| /_/    \_\__,_|\__\___/ \_____\___/|_| |_|_| |_|\__, |
+                                                                              __/ |
+                                                                             |___/
+"
+```
+
 # Automated Windows & WSL Configuration
 
 This repository contains a script that automates the configuration of Windows and WSL. It installs the necessary software and tools for development and personal use.
 
-This is an opinionated configuration, suitable for people who use WSL2 for development and Windows for personal use. This is in part inspired by [Omakub](https://omakub.org/), a script that configures Ubuntu OS.
+This is an opinionated configuration, designed for individuals who utilize WSL2 for development and Windows for personal purposes. It draws inspiration from [Omakub](https://omakub.org/), a script that configures the Ubuntu OS.
 
-I had Autoconfig for my own but thought others might find it useful as well.
+Originally created for my personal use, I decided to share Autoconfig with others who may find it beneficial.
+
+## Supported Platforms
+
+Tested on the following WSL2 distributions:
+
+1. Ubuntu 22.04
+2. Ubuntu 24.04
 
 ## Usage
-
-It has two components:
-
-1. [WinConfig.ps1 - This script configures Windows.](#windows-configuration)
-2. [wsl_config.sh - This script configures WSL.](#wsl-configuration)
 
 ### Installing WSL
 
@@ -23,15 +38,67 @@ cd autoconfig
 ./autoconfig.sh
 ```
 
-You will need to install nerd fonts and configure them in your Microsoft Terminal settings. A font is included in the `fonts` directory.
+By default the script will run in silent mode.
+
+### Interactive Mode
+
+You can run the script in interactive mode by passing the `-i` flag.
+
+```bash
+./autoconfig.sh -i
+```
+
+You will need to install nerd fonts and configure them in your Microsoft Terminal settings. A font is included in the `font` directory.
 
 ## WSL Configuration
 
 Currently it configures the following:
 
-1. **VSCode Terminal**: Configures the terminal prompt so that it shows the current directory and git branch. It also shows if the current directory is dirty. This will not be the primary terminal that you use by opening Windows Terminal, but available when you open VSCode. Useful because it shows the git branch and status without being too fancy.
-2. **Oh My Posh**: Configures the terminal prompt with Oh My Posh. This will be the primary terminal that you use by opening Windows Terminal. This is fancy, shows current directory, git branch, status, and more. It is configured to use a customised `quick-term` theme and implemented using `.profile`.
+# Automated Windows & WSL Configuration
 
-## Windows Configuration
+This repository contains a script that automates the configuration of Windows and WSL. It installs the necessary software and tools for development and personal use.
 
-Windows configuration will arrive in the future.
+## Features
+
+1. **VSCode Terminal**: Configures the terminal prompt in VSCode to show the current directory and git branch, as well as indicating if the directory is dirty. This provides a simple and informative terminal experience within VSCode.
+
+2. **Oh My Posh**: Configures the terminal prompt with Oh My Posh, which serves as the primary terminal when using Windows Terminal. Oh My Posh offers a more visually appealing prompt that displays the current directory, git branch, status, and more. It is configured to use a customized `quick-term` theme and implemented using `.profile`.
+
+3. **Git**: Installs Git and prompts you to configure your name and email. It also configures the Windows Git credential manager to store credentials in the Windows Credential Manager. This is particularly useful if you use Git in both WSL and Windows.
+
+4. **AWS CLI**: Installs the AWS CLI, symlinks the Windows `.aws` directory to WSL, and configures the CLI with the default profile. This allows you to use the same AWS CLI configuration in both WSL and Windows.
+
+5. **Mise**: Installs Mise, a tool for managing dotfiles. It is configured to use the `mise` directory in the home directory, providing a convenient way to manage your dotfiles.
+
+## Usage
+
+To use this script, follow these steps:
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/rehanhaider/autoconfig.git
+   cd autoconfig
+   ```
+
+2. Run the `autoconfig.sh` script from the root directory:
+
+   ```bash
+   ./autoconfig.sh
+   ```
+
+   By default, the script runs in silent mode.
+
+### Interactive Mode
+
+You can run the script in interactive mode by passing the `-i` flag:
+
+```bash
+./autoconfig.sh -i
+```
+
+In interactive mode, you will be prompted for additional configuration options.
+
+## Additional Notes
+
+Please note that Windows configuration is not currently supported, but may be added in future updates.
