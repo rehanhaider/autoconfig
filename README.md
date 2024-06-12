@@ -56,7 +56,7 @@ Handy shortcuts for working with git. Divided in two components
 a. `gs`: Shortcut for `git status`
 b. `ga`: Shortcut for `git add`
 
-c.  `gcm {flag} "<commit message> `: Shortcut for `git commit -m`, but you also need to pass a flag. The flag is the type of commit with choices from the following
+c. `gcm {flag} "<commit message> `: Shortcut for `git commit -m`, but you also need to pass a flag. The flag is the type of commit with choices from the following
 
 1. FEAT (f) => "✨ FEAT: "
 2. FIX (b) => "🐛 FIX: "
@@ -67,10 +67,12 @@ c.  `gcm {flag} "<commit message> `: Shortcut for `git commit -m`, but you also 
 7. TEST (t) => "🔬 TEST: "
 8. CHORE (c) => "🔧 CHORE: "
 
+d. `gcam {flag} "<commit message> `: Shortcut for `git commit -am`.
+e. `gp`: Shortcut for `git push`
+
 An example is show below of committing this readme changes.
 
-
-    alias gp='git push'
+![git shortcuts](./assets/05-git-shortcuts.png)
 
 ## Supported Platforms
 
@@ -81,9 +83,7 @@ Tested on the following distributions:
 
 It may work on other distributions, but it has not been tested.
 
-## Usage
-
-### Installing WSL
+## Installing on WSL
 
 To use you can clone this repositorya and run `autoconfig.sh` from the root directory.
 
@@ -104,55 +104,6 @@ You can run the script in interactive mode by passing the `-i` flag.
 ```
 
 You will need to install nerd fonts and configure them in your Microsoft Terminal settings. A font is included in the `font` directory.
-
-## Features
-
-Currently it configures the following:
-
-# Automated Windows & WSL Configuration
-
-This repository contains a script that automates the configuration of Windows and WSL. It installs the necessary software and tools for development and personal use.
-
-## Features
-
-1. **VSCode Terminal**: Configures the terminal prompt in VSCode to show the current directory and git branch, as well as indicating if the directory is dirty. This provides a simple and informative terminal experience within VSCode.
-
-2. **Oh My Posh**: Configures the terminal prompt with Oh My Posh, which serves as the primary terminal when using Windows Terminal. Oh My Posh offers a more visually appealing prompt that displays the current directory, git branch, status, and more. It is configured to use a customized `quick-term` theme and implemented using `.profile`.
-
-3. **Git**: Installs Git and prompts you to configure your name and email. It also configures the Windows Git credential manager to store credentials in the Windows Credential Manager. This is particularly useful if you use Git in both WSL and Windows.
-
-4. **AWS CLI**: Installs the AWS CLI, symlinks the Windows `.aws` directory to WSL, and configures the CLI with the default profile. This allows you to use the same AWS CLI configuration in both WSL and Windows.
-
-5. **Mise**: Installs Mise, a tool for managing dotfiles. It is configured to use the `mise` directory in the home directory, providing a convenient way to manage your dotfiles.
-
-## Usage
-
-To use this script, follow these steps:
-
-1. Clone this repository:
-
-   ```bash
-   git clone https://github.com/rehanhaider/autoconfig.git
-   cd autoconfig
-   ```
-
-2. Run the `autoconfig.sh` script from the root directory:
-
-   ```bash
-   ./autoconfig.sh
-   ```
-
-   By default, the script runs in silent mode.
-
-### Interactive Mode
-
-You can run the script in interactive mode by passing the `-i` flag:
-
-```bash
-./autoconfig.sh -i
-```
-
-In interactive mode, you will be prompted for additional configuration options.
 
 ## Additional Notes
 
