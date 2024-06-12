@@ -11,11 +11,15 @@
 
 # Automated Windows & WSL Configuration
 
-This repository contains a script that automates the configuration of Windows and WSL. It installs the necessary software and tools for development and personal use.
-
-This is an opinionated configuration, designed for individuals who utilize WSL2 for development and Windows for personal purposes. It draws inspiration from [Omakub](https://omakub.org/), a script that configures the Ubuntu OS.
+Autoconfig is an opinionated configuration of Dev Environment on Windows Subsystem for Linux 2 (WSL2). It if fully automated, customisable if needed, and reversible way of doing on WSL2.
 
 Originally created for my personal use, I decided to share Autoconfig with others who may find it beneficial.
+
+It draws inspiration from [Omakub](https://omakub.org/), a script that configures the Ubuntu OS.
+
+![autoconfig automated configration of WSL2 development environment](./assets/autoconfig.gif)
+
+## Features
 
 ## Supported Platforms
 
@@ -50,7 +54,7 @@ You can run the script in interactive mode by passing the `-i` flag.
 
 You will need to install nerd fonts and configure them in your Microsoft Terminal settings. A font is included in the `font` directory.
 
-## WSL Configuration
+## Features
 
 Currently it configures the following:
 
