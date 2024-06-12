@@ -72,7 +72,17 @@ e. `gp`: Shortcut for `git push`
 
 An example is show below of committing this readme changes.
 
+> Technically `gcm` and `gcam` aren't aliases, but methods.
+
 ![git shortcuts](./assets/05-git-shortcuts.png)
+
+5. Langauges and Version management
+
+Autoconfig uses [`mise`](https://mise.jdx.dev/getting-started.html) for environment, dotfile, and version management. Autoconfig uses it to configured `Node@LTS`, `Python@3.12` and `npm@latest` at the global level. Per project you can always use `mise` to specify which versions you need.
+
+5. AWS Developer Tools
+
+Autoconfig not just installs `AWS CLI`, `AWS CDK`, and `AWS SAM CLI`, but it also symlinks your Windows `.aws` credentials if they exist so you don't have to redo the configuration in either place.
 
 ## Supported Platforms
 
