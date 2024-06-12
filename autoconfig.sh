@@ -14,7 +14,13 @@ LIB_DIR="${CUR_DIR}/wsl/lib"
 THEME_DIR="${CUR_DIR}/themes"
 # shellcheck disable=SC2034
 
-
+THEMES = (
+	"blue-owl"
+	"gruvbox"
+	"paradox"
+	"quick-term"
+	"autoconfig"
+)
 
 # shellcheck disable=SC2034
 STEP=0
