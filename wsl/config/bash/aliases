@@ -6,6 +6,7 @@ alias lsl='ls -lF'
 
 # Tools
 alias c='code .' # Open current directory in VS Code
+alias cls='clear' # Clear the terminal
 
 # Git
 alias gs='git status'
