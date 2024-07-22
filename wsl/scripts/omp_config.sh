@@ -21,7 +21,7 @@ install_omp() {
         WARN "Oh My Posh binary does not exist..."
         ## Install Oh My Posh
         WARN "Installing Oh My Posh from source..."
-        RUN "Install Oh My Posh" "curl -s https://ohmyposh.dev/install.sh | sudo bash"
+        RUN "Install Oh My Posh" "curl -s https://ohmyposh.dev/install.sh | bash -s"
     fi
 }
 
