@@ -80,20 +80,17 @@
           "style": "diamond",
           "leading_diamond": "<transparent,background>\ue0b0</>",
           "trailing_diamond": "\ue0b0",
-          "foreground": "#100e23",
-          "background": "#906cff",
-          "template": " \ue235 {{ .Major }}.{{ .Minor }} "
+          "foreground": "#ffd343",
+          "background": "#306998",
+          "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ .Major }}.{{ .Minor }} {{ if .Venv }}({{ .Venv }}) {{ end }}{{ end }}"
         },
         {
-          "type": "python",
-          "style": "diamond",
-          "trailing_diamond": "\ue0b0",
-          "foreground": "#100e23",
-          "background": "#906cff",
-          "template": " ({{ .Venv }}) ",
-          "properties": {
-            "display_mode": "environment"
-          }
+          "type": "aws",
+          "style": "powerline",
+          "powerline_symbol": "",
+          "foreground": "#ffffff",
+          "background": "#232f3e",
+          "template": " \u2601 {{.Profile}}{{if .Region}}@{{.Region}}{{end}} "
         }
       ],
       "type": "prompt"
