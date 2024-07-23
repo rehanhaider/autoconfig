@@ -6,7 +6,7 @@
       "newline": true,
       "segments": [
         {
-          "background": "#d75f00",
+          "background": "#3A3A3A",
           "foreground": "#f2f3f8",
           "properties": {
             "alpine": "\uf300",
@@ -83,9 +83,9 @@
       "newline": true,
       "segments": [
         {
-          "foreground": "#d75f00",
+          "foreground": "#3A3A3A",
           "style": "plain",
-          "template": "\u2570\u2500 {{ if .Root }}#{{else}}${{end}}",
+          "template": "\u2570\u2500 <#FFFFFF>{{ if .Root }}#{{else}}${{end}}</>",
           "type": "text"
         }
       ],
