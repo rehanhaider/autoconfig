@@ -74,6 +74,26 @@
           "template": " {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} <transparent>\ue0b1</> <#121318>\uf044 {{ .Working.String }}</>{{ end }}{{ if .Staging.Changed }} <transparent>\ue0b1</> <#121318>\uf046 {{ .Staging.String }}</>{{ end }}{{ if gt .StashCount 0 }} <transparent>\ue0b1</> <#121318>\ueb4b {{ .StashCount }}</>{{ end }} ",
           "trailing_diamond": "\ue0b0",
           "type": "git"
+        },
+        {
+          "type": "python",
+          "style": "diamond",
+          "leading_diamond": "<transparent,background>\ue0b0</>",
+          "trailing_diamond": "\ue0b0",
+          "foreground": "#100e23",
+          "background": "#906cff",
+          "template": " \ue235 {{ .Major }}.{{ .Minor }} "
+        },
+        {
+          "type": "python",
+          "style": "diamond",
+          "trailing_diamond": "\ue0b0",
+          "foreground": "#100e23",
+          "background": "#906cff",
+          "template": " ({{ .Venv }}) ",
+          "properties": {
+            "display_mode": "environment"
+          }
         }
       ],
       "type": "prompt"
