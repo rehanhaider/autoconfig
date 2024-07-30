@@ -35,7 +35,7 @@
           "foreground": "#4e4e4e",
           "style": "powerline",
           "powerline_symbol": "\ue0b0",
-          "template": " {{ .UserName }} ",
+          "template": " {{ .UserName }}@{{ .HostName }} ",
           "type": "session"
         },
         {
@@ -67,11 +67,12 @@
             "fetch_status": true,
             "branch_icon": "\uf418 ",
             "branch_identical_icon": "\uf444",
-            "branch_gone_icon": "\ueab8"
+            "branch_gone_icon": "\ueab8",
+            "fetch_upstream_icon": true
           },
           "style": "diamond",
           "leading_diamond": "<transparent,background>\ue0b0</>",
-          "template": " {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} <transparent>\ue0b1</> <#121318>\uf044 {{ .Working.String }}</>{{ end }}{{ if .Staging.Changed }} <transparent>\ue0b1</> <#121318>\uf046 {{ .Staging.String }}</>{{ end }}{{ if gt .StashCount 0 }} <transparent>\ue0b1</> <#121318>\ueb4b {{ .StashCount }}</>{{ end }} ",
+          "template": " {{ .UpstreamIcon }} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} <transparent>\ue0b1</> <#121318>\uf044 {{ .Working.String }}</>{{ end }}{{ if .Staging.Changed }} <transparent>\ue0b1</> <#121318>\uf046 {{ .Staging.String }}</>{{ end }}{{ if gt .StashCount 0 }} <transparent>\ue0b1</> <#121318>\ueb4b {{ .StashCount }}</>{{ end }} ",
           "trailing_diamond": "\ue0b0",
           "type": "git"
         },
@@ -90,7 +91,8 @@
           "powerline_symbol": "",
           "foreground": "#ffffff",
           "background": "#232f3e",
-          "template": " \u2601 {{.Profile}}{{if .Region}}@{{.Region}}{{end}} "
+          "template": " \u2601 {{.Profile}}{{if .Region}}@{{.Region}}{{end}} ",
+          "properties": {"display_default": false}
         }
       ],
       "type": "prompt"
