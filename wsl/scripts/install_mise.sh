@@ -12,7 +12,8 @@ install_mise() {
 install_mise_langs() {
     ## Check if node is already installed
     RUN "Install latest Node.js & NPM" "${HOME}/.local/bin/mise use --global node@lts"
-    RUN "Install latest Python" "${HOME}/.local/bin/mise use --global python@3.12"
+    ## Removing Python from Mise till Mise has stable support for UV. 
+    # RUN "Install latest Python" "${HOME}/.local/bin/mise use --global python@3.12"
 }
 
 # MAIN
