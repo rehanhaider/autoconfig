@@ -76,9 +76,17 @@ An example is show below of committing this readme changes.
 
 ![git shortcuts](./assets/05-git-shortcuts.png)
 
-5. Langauges and Version management
+### 5. Langauges and Version management
 
-Autoconfig uses [`mise`](https://mise.jdx.dev/getting-started.html) for environment, dotfile, and version management. Autoconfig uses it to configured `Node@LTS`, `Python@3.12` and `npm@latest` at the global level. Per project you can always use `mise` to specify which versions you need.
+#### a. Node.js
+
+Autoconfig uses [`mise`](https://mise.jdx.dev/getting-started.html) for environment, dotfile, and version management. Autoconfig uses it to configured `Node@LTS` and `npm@latest` at the global level. Per project you can always use `mise` to specify which versions you need.
+
+#### b. Python
+
+Autoconfig uses [`uv`](https://docs.astral.sh/uv/) for Python version management.
+
+### 6.
 
 5. AWS Developer Tools
 
