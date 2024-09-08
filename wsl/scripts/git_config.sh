@@ -24,6 +24,13 @@ git_config() {
         read -r -p "You name that you use with git: " name
         git config --global user.name "${name}"
     fi
+
+    ## Check if default branch is set to main
+    if git config --global init.defaultBranch &> /dev/null; then
+        INFO "Git default branch already set to main."
+    else
+        git config --global init.defaultBranch main
+    fi
     
 }
 
