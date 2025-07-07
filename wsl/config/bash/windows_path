@@ -1,0 +1,3 @@
+#!/bin/bash
+# Move Windows paths to end of PATH (add this to your .bashrc)
+export PATH=$(echo "$PATH" | tr ':' '\n' | grep -v "/mnt/c/" | tr '\n' ':')$(echo "$PATH" | tr ':' '\n' | grep "/mnt/c/" | tr '\n' ':')

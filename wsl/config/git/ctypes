@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Define commit types
-FEAT="✨ FEAT: "
-FIX="🐛 FIX: "
-REFACTOR="♻️ REFACTOR: "
-DOCS="📝 DOCS: "
-STYLE="💅 STYLE: "
-PERF="⚡️ PERF: "
-TEST="🔬 TEST: "
-CHORE="🔧 CHORE: "
+FEAT="FEAT: "
+FIX="FIX: "
+REFACTOR="REFACTOR: "
+DOCS="DOCS: "
+STYLE="STYLE: "
+PERF="PERF: "
+TEST="TEST: "
+CHORE="CHORE: "
 
 # Function to commit with a message
 gcm() {

@@ -29,7 +29,15 @@ __bash_prompt() {
         fi`'
     local lightblue='\[\033[1;34m\]'
     local removecolor='\[\033[0m\]'
-    PS1="${userpart}${lightblue}\w${gitbranch}${removecolor}\$ "
+
+    # --- Virtual Environment ---
+    local venv_prompt=""
+    if [ -n "$VIRTUAL_ENV" ]; then
+        # Using printf for safer string building and color codes
+        printf -v venv_prompt -- '(%s) ' "$(basename "$VIRTUAL_ENV")"
+    fi
+
+    PS1="${venv_prompt}${userpart}${lightblue}\w${gitbranch}${removecolor}\$ "
     unset -f __bash_prompt
 }
 
