@@ -3,6 +3,7 @@
     "blocks": [
         {
             "alignment": "left",
+            "newline": true,
             "segments": [
                 {
                     "foreground": "lightBlue",
@@ -71,5 +72,7 @@
             "type": "prompt"
         }
     ],
+    "final_space": true,
+    "enable_cursor_positioning": true,
     "version": 3
 }
