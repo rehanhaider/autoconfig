@@ -11,7 +11,7 @@
                         "display_host": true
                     },
                     "style": "plain",
-                    "template": "<green>\u250c\u2500\u2500(</>{{ .UserName }}@{{ .HostName }}<green>)</>",
+                    "template": "<green>(</>{{ .UserName }}@{{ .HostName }}<green>)</>",
                     "type": "session"
                 },
                 {
@@ -21,18 +21,8 @@
                         "style": "full"
                     },
                     "style": "plain",
-                    "template": "<{{ if .Root }}lightBlue{{ else }}green{{ end }}>-[</>{{ .Path }}<{{ if .Root }}lightBlue{{ else }}green{{ end }}>]</>",
+                    "template": "<green>-[</>{{ .Path }}<green>]</>",
                     "type": "path"
-                },
-                {
-                    "foreground": "yellow",
-                    "properties": {
-                        "fetch_version": true,
-                        "fetch_virtual_env": true
-                    },
-                    "style": "plain",
-                    "template": "<green>-[</>\ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ .Major }}.{{ .Minor }} {{ if .Venv }}({{ .Venv }}){{ end }}{{ end }}<green>]</>",
-                    "type": "python"
                 },
                 {
                     "foreground": "white",
@@ -59,13 +49,51 @@
             "type": "prompt"
         },
         {
+            "alignment": "right",
+            "segments": [
+                {
+                    "type": "node",
+                    "style": "powerline",
+                    "powerline_symbol": "\ue0b0",
+                    "foreground": "#88e570",
+                    "background": "#193549",
+                    "properties": {
+                        "display_mode": "files",
+                        "fetch_package_manager": true,
+                        "fetch_version": true,
+                        "npm_icon": "<#e5272d>\ue616 npm</> ",
+                        "yarn_icon": "<#37aee5>\ue6a7 yarn</> ",
+                        "pnpm_icon": "<#e5a100>\udb80\udec1 pnpm</> "
+                    },
+                    "template": " {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}\ue718 {{ .Major }}.{{ .Minor }} "
+                },
+                {
+                    "type": "python",
+                    "style": "powerline",
+                    "powerline_symbol": "\ue0b0",
+                    "foreground": "#ffd343",
+                    "background": "#306998",
+                    "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ .Major }}.{{ .Minor }} {{ if .Venv }}({{ .Venv }}) {{ end }}{{ end }}"
+                },
+                {
+                    "background": "#565656",
+                    "foreground": "#faa029",
+                    "style": "powerline",
+                    "powerline_symbol": "\ue0b0",
+                    "template": " \ue7ad {{.Profile}}{{if .Region}}@{{.Region}}{{end}} ",
+                    "type": "aws"
+                }
+            ],
+            "type": "prompt"
+        },
+        {
             "alignment": "left",
             "newline": true,
             "segments": [
                 {
                     "foreground": "lightBlue",
                     "style": "plain",
-                    "template": "<green>\u2514</><#FF96A0>\u276f</><#C591E8>\u276f</><#69FF94>\u276f</> ",
+                    "template": "<green></><#FF96A0>\u276f</><#C591E8>\u276f</><#69FF94>\u276f</>",
                     "type": "text"
                 }
             ],
