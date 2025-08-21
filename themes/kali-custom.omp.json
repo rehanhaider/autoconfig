@@ -26,10 +26,14 @@
                     "properties": {
                         "folder_icon": "\uf115",
                         "folder_separator_icon": " \uf054 ",
-                        "style": "agnoster_full"
+                        "style": "agnoster_full",
+                        "home_icon": "\ueb06",
+                        "mapped_locations": {
+                            "/home/rehan/Projects": "\udb83\udd46"
+                        }
                     },
                     "style": "plain",
-                    "template": "<green>-[</>\udb81\udf70 {{ .Path }}<green>]</>",
+                    "template": "<green>-[</>\udb81\udf70 \uf061 {{ .Path }}<green>]</>",
                     "type": "path"
                 },
                 {
