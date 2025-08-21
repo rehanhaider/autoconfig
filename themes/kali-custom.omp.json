@@ -24,11 +24,12 @@
                 {
                     "foreground": "lightWhite",
                     "properties": {
-                        "folder_separator_icon": "<#c0c0c0>/</>",
-                        "style": "full"
+                        "folder_icon": "\uf115",
+                        "folder_separator_icon": " \uf054 ",
+                        "style": "agnoster_full"
                     },
                     "style": "plain",
-                    "template": "<green>-[</>{{ .Path }}<green>]</>",
+                    "template": "<green>-[</>\udb81\udf70 {{ .Path }}<green>]</>",
                     "type": "path"
                 },
                 {
@@ -40,7 +41,7 @@
                         "{{ if gt .Behind 0 }}p:git-behind{{ end }}"
                     ],
                     "style": "plain",
-                    "template": "<green>-[</>{{ .UpstreamIcon }} {{.RepoName}} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} <green>|</> <#ffaa00>\uf044 {{ .Working.String }}</>{{ end }}{{ if .Staging.Changed }} <transparent>\ue0b1</> <#00ff00>\uf046 {{ .Staging.String }}</>{{ end }}{{ if gt .StashCount 0 }} <green>|</> <#87ceeb>\ueb4b {{ .StashCount }}</>{{ end }}<green>]</>",
+                    "template": "<green>-[</>{{ .UpstreamIcon }} {{.RepoName}} \uf061 {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} <green>|</> <#ffaa00>\uf044 {{ .Working.String }}</>{{ end }}{{ if .Staging.Changed }} <transparent>\ue0b1</> <#00ff00>\uf046 {{ .Staging.String }}</>{{ end }}{{ if gt .StashCount 0 }} <green>|</> <#87ceeb>\ueb4b {{ .StashCount }}</>{{ end }}<green>]</>",
                     "type": "git",
                     "properties": {
                         "branch_max_length": 25,
@@ -59,9 +60,24 @@
             "alignment": "right",
             "segments": [
                 {
+                    "background": "#b2bec3",
+                    "foreground": "#222222",
+                    "leading_diamond": "\ue0b6",
+                    "trailing_diamond": "<transparent,background>\ue0b2</>",
+                    "properties": {
+                        "linux": "\ue712",
+                        "macos": "\ue711",
+                        "windows": "\ue70f"
+                    },
+                    "style": "diamond",
+                    "template": " {{.Icon}} ",
+                    "type": "os"
+                },
+                {
                     "type": "node",
                     "style": "powerline",
-                    "powerline_symbol": "\ue0b0",
+                    "powerline_symbol": "\ue0b2",
+                    "invert_powerline": true,
                     "foreground": "#88e570",
                     "background": "#193549",
                     "properties": {
@@ -70,14 +86,16 @@
                         "fetch_version": true,
                         "npm_icon": "<#e5272d>\ue616 npm</> ",
                         "yarn_icon": "<#37aee5>\ue6a7 yarn</> ",
-                        "pnpm_icon": "<#e5a100>\udb80\udec1 pnpm</> "
+                        "pnpm_icon": "<#e5a100>\udb80\udec1 pnpm</> ",
+                        "bun_icon": "<#e5a100>\ue76f bun</> "
                     },
                     "template": " {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}\ue718 {{ .Major }}.{{ .Minor }} "
                 },
                 {
                     "type": "python",
-                    "style": "powerline",
-                    "powerline_symbol": "\ue0b0",
+                    "style": "diamond",
+                    "leading_diamond": "\ue0b2",
+                    "trailing_diamond": "\ue0b4",
                     "foreground": "#ffd343",
                     "background": "#306998",
                     "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ .Major }}.{{ .Minor }} {{ if .Venv }}({{ .Venv }}) {{ end }}{{ end }}"
