@@ -2,7 +2,6 @@
 shopt -s expand_aliases
 
 # Set default values
-SILENT_MODE=true
 # shellcheck disable=SC2034
 MAX_BACKUPS=10 
 
@@ -24,20 +23,6 @@ THEMES=(
 
 # shellcheck disable=SC2034
 STEP=0
-# Set silent mode
-while getopts ":i" opt; do
-	case ${opt} in
-		i )
-			SILENT_MODE=false
-			;;
-		* )
-			echo "Usage: $0 [-i]"
-			echo "Options:"
-			echo "  -i  Interactive mode"
-			exit 1
-			;;
-	esac
-done
 
 # shellcheck disable=SC1091
 source "${CUR_DIR}/wsl/config/bash/exports"
@@ -49,26 +34,10 @@ source "${LIB_DIR}/directives.sh"
 source "${LIB_DIR}/intro.sh"
 
 
-if [ "$SILENT_MODE" = true ]; then
-	# Display ASCII Art
-	NEWLINE
-	WARN "Running in silent mode ..."
-	NEWLINE
-fi
-
-
-if [ "$SILENT_MODE" = false ]; then
-	# Prompt the user to continue
-	while true; do
-		echo -e -n "\n"
-		read -r -p "Do you wish to continue? [Y/N] " yn
-		case $yn in
-			[Yy]* ) break;;
-			[Nn]* ) exit;;
-			* ) echo "Please answer Y or N";;
-		esac
-	done
-fi
+# Display ASCII Art
+NEWLINE
+WARN "Running autoconfig script ..."
+NEWLINE
 
 
 rprint "${COLOR_WARN}" "${DELIMITER}"

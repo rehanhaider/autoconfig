@@ -56,25 +56,8 @@ prompt_and_execute() {
     local message=$1
     local func=$2
 
-    if [ "$SILENT_MODE" = false ]; then
-        # shellcheck disable=SC1091
-        while true; do
-            read -r -p "Proceed with $message [Y/n] " yn
-            case $yn in
-                [Yy]* ) 
-                        ($func)
-                        break;;
-                [Nn]* ) 
-                        echo -n "Skipping $message..."
-                        # shellcheck disable=SC2034
-                        for i in {1..8}; do echo -n "." && sleep 0.25; done;
-                        break;;
-                * ) echo -e "\nPlease answer Y or N.";;
-            esac
-        done
-    else
-        ($func)
-    fi
+    # Always execute in silent mode
+    ($func)
 }
 
 run_command() {
