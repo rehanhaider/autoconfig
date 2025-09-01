@@ -66,6 +66,7 @@ source "${SCRIPT_DIR}/omp_config.sh"
 source "${SCRIPT_DIR}/git_config.sh"
 source "${SCRIPT_DIR}/aws_install.sh"
 source "${SCRIPT_DIR}/docker_install.sh"
+source "${SCRIPT_DIR}/install_android.sh"
 
 NEWLINE
 rprint "${COLOR_WARN}" "${DELIMITER}"
