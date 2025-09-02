@@ -1,6 +1,4 @@
 #!/bin/bash
-
-# Requires modification to use directives.sh
 set -euo pipefail  # Exit on error, undefined vars, pipe failures
 
 # Android SDK Installation Script for WSL
@@ -8,7 +6,7 @@ set -euo pipefail  # Exit on error, undefined vars, pipe failures
 # Requirements: Ubuntu/Debian-based WSL distribution
 
 # Configuration
-ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+ANDROID_SDK_ROOT="/opt/android-sdk"
 readonly JAVA_VERSION="17"
 readonly TEMP_DIR="/tmp"
 
@@ -314,9 +312,17 @@ install_cmdtools() {
     
     log "Installing Android SDK command-line tools..."
     
-    # Create SDK directory with proper permissions
-    if ! mkdir -p "$ANDROID_SDK_ROOT"; then
-        error_exit "Failed to create Android SDK directory: $ANDROID_SDK_ROOT"
+    # Create SDK directory with proper permissions (may need sudo)
+    if [ ! -d "$ANDROID_SDK_ROOT" ]; then
+        log "Creating SDK directory: $ANDROID_SDK_ROOT"
+        if ! sudo mkdir -p "$ANDROID_SDK_ROOT"; then
+            error_exit "Failed to create Android SDK directory: $ANDROID_SDK_ROOT"
+        fi
+        
+        # Set ownership to current user
+        if ! sudo chown -R "$USER:$USER" "$ANDROID_SDK_ROOT"; then
+            error_exit "Failed to set ownership of SDK directory"
+        fi
     fi
     
     if ! cd "$ANDROID_SDK_ROOT"; then
