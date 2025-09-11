@@ -12,7 +12,21 @@ upgrade_packages() {
 
 ## Install required packages
 install_packages() {
-    RUN "Installation" "sudo apt install -y curl nano wget unzip git gcc g++ make build-essential jq postgresql-client-common"
+    RUN "Installation" "sudo apt install -y curl nano wget unzip git gcc g++ make build-essential jq psql bind9-dnsutils whois"
+}
+
+install_bat() {
+    RUN "Install bat" "sudo apt install -y bat"
+    RUN "Create directory for symlink" "mkdir -p ~/.local/bin"
+    RUN "Create symlink" "ln -s /usr/bin/batcat ~/.local/bin/bat"
+}
+
+
+install_nvim() {
+    RUN "add nvim repository" "sudo add-apt-repository ppa:neovim-ppa/stable"
+    RUN "update apt" "sudo apt update"
+    RUN "install nvim" "sudo apt install -y neovim"
+    RUN "Install python modules" "sudo apt install -y python3-pip python3-dev"
 }
 
 # MAIN

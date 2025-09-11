@@ -14,6 +14,11 @@ install_docker() {
     RUN "Install Docker" "sudo apt -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin"
 }
 
+add_docker_group() {
+    RUN "Add Docker group" "sudo groupadd docker"
+    RUN "Add user to Docker group" "sudo usermod -aG docker $USER"
+    RUN "Activate changes" "newgrp docker"
+}
 
 
 DELIM "Updating Apt with Docker repository..."
@@ -26,5 +31,12 @@ PROMPT "Install Docker" install_docker
 NEWLINE
 PASS "Docker installed successfully."
 
+DELIM "Adding user to Docker group..."
+PROMPT "Add user to Docker group" add_docker_group
+NEWLINE
+PASS "User added to Docker group successfully."
 
+
+# Docker post-installation
+# https://docs.docker.com/engine/install/linux-postinstall/
 
