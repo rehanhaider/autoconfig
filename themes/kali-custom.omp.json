@@ -33,7 +33,7 @@
                         }
                     },
                     "style": "plain",
-                    "template": "<green>-[</>\udb81\udf70 | {{ .Path }}<green>]</>",
+                    "template": "<green>-[</>\udb81\udf70 \uf061 {{ .Path }}<green>]</>",
                     "type": "path"
                 },
                 {
@@ -45,7 +45,7 @@
                         "{{ if gt .Behind 0 }}p:git-behind{{ end }}"
                     ],
                     "style": "plain",
-                    "template": "<green>-[</>{{.RepoName}} | {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} <green>|</> <#ffaa00>\uf044 {{ .Working.String }}</>{{ end }}{{ if .Staging.Changed }} | <#00ff00>\uf046 {{ .Staging.String }}</>{{ end }}{{ if gt .StashCount 0 }} <green>|</> <#87ceeb>\ueb4b {{ .StashCount }}</>{{ end }}<green>]</>",
+                    "template": "<green>-[</>{{ .UpstreamIcon }} {{.RepoName}} \uf061 {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} <green>|</> <#ffaa00>\uf044 {{ .Working.String }}</>{{ end }}{{ if .Staging.Changed }} | <#00ff00>\uf046 {{ .Staging.String }}</>{{ end }}{{ if gt .StashCount 0 }} <green>|</> <#87ceeb>\ueb4b {{ .StashCount }}</>{{ end }}<green>]</>",
                     "type": "git",
                     "properties": {
                         "branch_max_length": 25,
