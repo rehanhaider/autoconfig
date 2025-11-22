@@ -12,3 +12,7 @@ alias cls='clear' # Clear the terminal
 alias gs='git status'
 alias ga='git add'
 alias gp='git push'
+
+
+# Terraform
+alias tf='terraform'

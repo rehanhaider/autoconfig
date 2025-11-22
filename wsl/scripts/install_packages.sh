@@ -12,7 +12,7 @@ upgrade_packages() {
 
 ## Install required packages
 install_packages() {
-    RUN "Installation" "sudo apt install -y curl nano wget unzip git gcc g++ make build-essential jq psql bind9-dnsutils whois"
+    RUN "Installation" "sudo apt install -y curl nano wget unzip git gcc g++ make build-essential jq bind9-dnsutils whois tmux postgresql-client-17/"
 }
 
 install_bat() {
