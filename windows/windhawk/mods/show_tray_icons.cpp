@@ -10,14 +10,14 @@
 // @include         explorer.exe
 // @architecture    x86-64
 // ==/WindhawkMod==
-
 // ==WindhawkModReadme==
-/*...*/
 // ==/WindhawkModReadme==
-
 // ==WindhawkModSettings==
-/*...*/
 // ==/WindhawkModSettings==
+/**
+* {"mode":"showAll","exclusions":"GUID1,GUID2,GUID3"}
+*/
+
 
 #include <ntstatus.h>
 
