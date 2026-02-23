@@ -10,11 +10,6 @@ upgrade_packages() {
     RUN "Upgrade" "sudo apt upgrade -y"
 }
 
-## Install required packages
-install_packages() {
-    RUN "Installation" "sudo apt install -y curl nano wget unzip git gcc g++ make build-essential jq bind9-dnsutils whois tmux postgresql-client-17/"
-}
-
 install_bat() {
     RUN "Install bat" "sudo apt install -y bat"
     RUN "Create directory for symlink" "mkdir -p ~/.local/bin"
@@ -28,6 +23,23 @@ install_nvim() {
     RUN "install nvim" "sudo apt install -y neovim"
     RUN "Install python modules" "sudo apt install -y python3-pip python3-dev"
 }
+
+install_zoxide() {
+    RUN "install zoxide" "curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh"
+}
+
+## Install required packages
+install_packages() {
+    RUN "Installoig required packages" "sudo apt install -y curl nano wget unzip git gcc g++ make build-essential jq bind9-dnsutils whois tmux postgresql-client-17"
+    RUN "Installing required packages" "sudo apt install -y fzf"
+    RUN "Installing bat" install_bat
+    RUN "Installing nvim" install_nvim
+    RUN "Installing zoxide" install_zoxide
+}
+
+
+
+
 
 # MAIN
 

@@ -42,6 +42,8 @@ configure_bashrc() {
     RUN "Add export configuration" "echo 'source ${AUTOCONFIG_DIR}/config/bash/exports' >> ${HOME}/.bashrc"
     RUN "Add Mise configuration" "echo 'source ${AUTOCONFIG_DIR}/config/mise/mise_config' >> ${HOME}/.bashrc"
     RUN "Add AWS CLI Autocompletion" "echo 'complete -C '/usr/local/bin/aws_completer' aws' >> ${HOME}/.bashrc"
+    RUN "Add Brew configuration" "echo 'source ${AUTOCONFIG_DIR}/config/brew/init' >> ${HOME}/.bashrc"
+    RUN "Add fzf configuration" "echo 'source ${AUTOCONFIG_DIR}/config/fzf/init' >> ${HOME}/.bashrc"
     RUN "Add AUTOCONFIG end tag" "echo '${AUTOCONFIG_END}' >> ${HOME}/.bashrc"
 }
 

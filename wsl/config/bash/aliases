@@ -16,3 +16,6 @@ alias gp='git push'
 
 # Terraform
 alias tf='terraform'
+
+# zoxide
+alias zd='z'
