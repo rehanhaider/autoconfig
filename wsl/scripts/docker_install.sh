@@ -15,9 +15,15 @@ install_docker() {
 }
 
 add_docker_group() {
-    RUN "Add Docker group" "sudo groupadd docker"
-    RUN "Add user to Docker group" "sudo usermod -aG docker $USER"
-    RUN "Activate changes" "newgrp docker"
+    RUN "Ensure Docker group exists" "sudo groupadd -f docker"
+
+    if getent group docker | awk -F: '{print "," $4 ","}' | grep -q ",${USER},"; then
+        PASS "User ${USER} is already listed in the Docker group."
+    else
+        RUN "Add user to Docker group" "sudo usermod -aG docker $USER"
+    fi
+
+    WARN "Docker group changes require a new login shell. Restart WSL or run: newgrp docker"
 }
 
 
@@ -39,4 +45,3 @@ PASS "User added to Docker group successfully."
 
 # Docker post-installation
 # https://docs.docker.com/engine/install/linux-postinstall/
-

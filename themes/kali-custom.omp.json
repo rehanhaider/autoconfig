@@ -45,7 +45,7 @@
                         "{{ if gt .Behind 0 }}p:git-behind{{ end }}"
                     ],
                     "style": "plain",
-                    "template": "<green>-[</>{{ .UpstreamIcon }} {{.RepoName}} \uf061 {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} <green>|</> <#ffaa00>\uf044 {{ .Working.String }}</>{{ end }}{{ if .Staging.Changed }} | <#00ff00>\uf046 {{ .Staging.String }}</>{{ end }}{{ if gt .StashCount 0 }} <green>|</> <#87ceeb>\ueb4b {{ .StashCount }}</>{{ end }}<green>]</>",
+                    "template": "{{ if not (glob (printf \"%s/.jj\" (replace \"~\" .Env.HOME .Dir))) }}<green>-[</>{{ .UpstreamIcon }} {{.RepoName}} \uf061 {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} <green>|</> <#ffaa00>\uf044 {{ .Working.String }}</>{{ end }}{{ if .Staging.Changed }} | <#00ff00>\uf046 {{ .Staging.String }}</>{{ end }}{{ if gt .StashCount 0 }} <green>|</> <#87ceeb>\ueb4b {{ .StashCount }}</>{{ end }}<green>]{{ end }}",
                     "type": "git",
                     "properties": {
                         "branch_max_length": 25,
@@ -54,7 +54,22 @@
                         "branch_icon": "\uf418 ",
                         "branch_identical_icon": "\uf444",
                         "branch_gone_icon": "\ueab8",
-                        "fetch_upstream_icon": true
+                        "fetch_upstream_icon": true,
+                        "disable_with_jj": true
+                    }
+                },
+                {
+                    "foreground": "p:git-clean",
+                    "foreground_templates": [
+                        "{{ if .Working.Changed }}p:git-modified{{ end }}"
+                    ],
+                    "style": "plain",
+                    "template": "<green>-[</>jj \uf1fa {{ if .ClosestBookmarks }}{{ .ClosestBookmarks }}{{ else }}<#ff6b6b>no bookmark</>{{ end }}{{ if .Working.Changed }} <green>|</> <#ffaa00>\uf044 {{ .Working.String }}</>{{ end }}<green>]</>",
+                    "type": "jujutsu",
+                    "options": {
+                        "change_id_min_len": 8,
+                        "fetch_status": true,
+                        "ignore_working_copy": false
                     }
                 }
             ],

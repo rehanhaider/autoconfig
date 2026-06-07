@@ -30,8 +30,7 @@ install_zoxide() {
 
 ## Install required packages
 install_packages() {
-    RUN "Installoig required packages" "sudo apt install -y curl nano wget unzip git gcc g++ make build-essential jq bind9-dnsutils whois tmux postgresql-client-17"
-    RUN "Installing required packages" "sudo apt install -y fzf"
+    RUN "Installing required packages" "sudo apt install -y curl nano wget unzip git gcc g++ make build-essential jq bind9-dnsutils whois tmux postgresql-client-17 xclip"
     RUN "Installing bat" install_bat
     RUN "Installing nvim" install_nvim
     RUN "Installing zoxide" install_zoxide
