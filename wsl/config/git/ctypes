@@ -1,48 +1,97 @@
 #!/bin/bash
 
-# Define commit types
-FEAT="FEAT: "
-FIX="FIX: "
-REFACTOR="REFACTOR: "
-DOCS="DOCS: "
-STYLE="STYLE: "
-PERF="PERF: "
-TEST="TEST: "
-CHORE="CHORE: "
+# Conventional Commits helpers
+# Format: <type>(<scope>): <description>   (scope optional)
+# Spec: https://www.conventionalcommits.org
 
-# Function to commit with a message
+# Define valid commit types (lowercase, per Conventional Commits)
+CTYPES="feat fix refactor docs style perf test chore"
+
+# Resolve a type or its short alias to the canonical type name.
+# Returns the type on stdout, or non-zero if invalid.
+_ctype_resolve() {
+    case "$1" in
+        feat|f)     echo "feat" ;;
+        fix|b)      echo "fix" ;;
+        refactor|r) echo "refactor" ;;
+        docs|d)     echo "docs" ;;
+        style|s)    echo "style" ;;
+        perf|p)     echo "perf" ;;
+        test|t)     echo "test" ;;
+        chore|c)    echo "chore" ;;
+        *)          return 1 ;;
+    esac
+}
+
+# Commit with a Conventional Commits message.
+#   gcm <type> <message>            -> type: message
+#   gcm <type> <scope> <message>    -> type(scope): message
 gcm() {
-    # Verify that only 2 arguments are passed
-    if [ "$#" -ne 2 ]; then
-        echo "Usage: gcm <type> <message>"
-        echo "Available type: FEAT, FIX, REFACTOR, DOCS, STYLE, PERF, TEST, CHORE"
+    local type scope message
+
+    if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
+        gchelp
         return 1
     fi
 
-    # Check if the type is valid
-    local type
-    case "$1" in
-        FEAT|f) type="$FEAT" ;;
-        FIX|b) type="$FIX" ;;
-        REFACTOR|r) type="$REFACTOR" ;;
-        DOCS|d) type="$DOCS" ;;
-        STYLE|s) type="$STYLE" ;;
-        PERF|p) type="$PERF" ;;
-        TEST|t) type="$TEST" ;;
-        CHORE|c) type="$CHORE" ;;
-        *)
-            echo "Invalid type: $1"
-            echo "Valid types: FEAT, FIX, REFACTOR, DOCS, STYLE, PERF, TEST, CHORE"
-            return 1
-            ;;
-    esac
+    if ! type="$(_ctype_resolve "$1")"; then
+        FAIL "Invalid type: $1" 2>/dev/null || echo "Invalid type: $1"
+        gchelp
+        return 1
+    fi
 
-    # Commit with the constructed message
-    git commit -m "$type $2"
+    if [ "$#" -eq 3 ]; then
+        scope="$2"
+        message="$3"
+        git commit -m "${type}(${scope}): ${message}"
+    else
+        message="$2"
+        git commit -m "${type}: ${message}"
+    fi
 }
 
-# Function to add all changes and commit with a message
+# Stage all changes, then commit (same args as gcm).
 gcam() {
     git add .
-    gcm "$1" "$2"
+    gcm "$@"
+}
+
+# Print usage and the Conventional Commits cheat sheet.
+gchelp() {
+    cat <<'EOF'
+Conventional Commits helpers
+============================
+
+Usage:
+  gcm  <type> [scope] <message>    Commit with a conventional message
+  gcam <type> [scope] <message>    git add . , then commit
+  gchelp                           Show this help
+
+Format produced:
+  <type>: <message>                (no scope)
+  <type>(<scope>): <message>       (with scope)
+
+Types (short alias):
+  feat (f)      A new feature
+  fix  (b)      A bug fix
+  refactor (r)  Code change that neither fixes a bug nor adds a feature
+  docs (d)      Documentation only
+  style (s)     Formatting; no code-meaning change
+  perf (p)      Performance improvement
+  test (t)      Adding or fixing tests
+  chore (c)     Tooling, deps, housekeeping
+
+Scope = optional area of the codebase, e.g. auth, api, bash.
+
+Examples:
+  gcm feat "add login endpoint"          -> feat: add login endpoint
+  gcm fix auth "handle expired token"    -> fix(auth): handle expired token
+  gcm f api "paginate results (BE-34)"   -> feat(api): paginate results (BE-34)
+  gcam chore deps "bump terraform"       -> chore(deps): bump terraform
+
+Manual equivalent (no helper):
+  git commit -m "feat(auth): add login endpoint"
+
+Add an issue ref by writing it into the message, e.g. "... (BE-34)".
+EOF
 }

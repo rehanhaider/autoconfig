@@ -7,11 +7,13 @@ alias lsl='ls -lF'
 # Tools
 alias c='code .' # Open current directory in VS Code
 alias cls='clear' # Clear the terminal
+alias copy='xclip -selection clipboard'
 
 # Git
 alias gs='git status'
 alias ga='git add'
 alias gp='git push'
+# Conventional Commits helpers live in config/git/ctypes -> run `gchelp`
 
 
 # Terraform

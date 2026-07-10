@@ -27,9 +27,12 @@ link_win_credentials() {
 }
 
 install_cdk() {
-    ## Check if CDK is already installed
-    if [ -f "/usr/local/bin/cdk" ]; then
+    if command -v cdk >/dev/null 2>&1; then
         PASS "CDK is already installed. Skipping..."
+    elif command -v mise >/dev/null 2>&1 && mise exec -- cdk --version >/dev/null 2>&1; then
+        PASS "CDK is already installed through mise. Skipping..."
+    elif [ -x "${HOME}/.local/bin/mise" ] && "${HOME}/.local/bin/mise" exec -- cdk --version >/dev/null 2>&1; then
+        PASS "CDK is already installed through mise. Skipping..."
     else 
         RUN "Install CDK" "mise exec -- npm install -g aws-cdk"
     fi
